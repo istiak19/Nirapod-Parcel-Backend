@@ -41,20 +41,6 @@ export const updatedUserZodSchema = z.object({
         .min(1, { message: "Name cannot be empty" })
         .optional(),
 
-    password: z
-        .string()
-        .min(6, { message: "Password must be at least 6 characters long" })
-        .regex(/^(?=.*[A-Z])/, {
-            message: "Password must contain at least 1 uppercase letter.",
-        })
-        .regex(/^(?=.*[!@#$%^&*])/, {
-            message: "Password must contain at least 1 special character.",
-        })
-        .regex(/^(?=.*\d)/, {
-            message: "Password must contain at least 1 number.",
-        })
-        .optional(),
-
     phone: z
         .string()
         .regex(/^(?:\+88|88)?01[3-9]\d{8}$/, {
@@ -63,7 +49,7 @@ export const updatedUserZodSchema = z.object({
         .optional(),
 
     role: z
-        .enum(["ADMIN", "USER", "SUPER_ADMIN", "GUIDE"])
+        .enum(["Admin", "Receiver", "Sender"])
         .optional(),
 
     isActive: z
