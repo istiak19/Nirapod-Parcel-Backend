@@ -36,6 +36,26 @@ const credentialsLogin = catchAsync(async (req: Request, res: Response, next: Ne
     })(req, res, next);
 });
 
+const logout = catchAsync(async (req: Request, res: Response) => {
+    res.clearCookie("accessToken", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    });
+    res.clearCookie("refreshToken", {
+        httpOnly: true,
+        secure: false,
+        sameSite: "lax"
+    });
+
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "User logout in successfully",
+        data: null
+    });
+});
+
 const googleCallback = catchAsync(async (req: Request, res: Response) => {
     const user = req.user;
     let redirect = req.query.state ? String(req.query.state) : "";
@@ -56,5 +76,6 @@ const googleCallback = catchAsync(async (req: Request, res: Response) => {
 
 export const authController = {
     credentialsLogin,
+    logout,
     googleCallback
 };

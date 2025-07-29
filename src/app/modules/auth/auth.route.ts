@@ -6,6 +6,7 @@ import passport from "passport";
 const router = Router();
 
 router.post("/login", authController.credentialsLogin);
+router.post("/logout", authController.logout);
 
 // Google login
 router.get("/google", async (req: Request, res: Response, next: NextFunction) => {
