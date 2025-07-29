@@ -8,7 +8,7 @@ const allGetUser = catchAsync(async (req: Request, res: Response) => {
     const user = await userService.allGetUser();
     sendResponse(res, {
         success: true,
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         message: "Users retrieved successfully successfully",
         data: user.user,
         meta: {
