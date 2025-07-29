@@ -1,4 +1,6 @@
-import { AnyZodObject } from 'zod';
+import { ZodObject, ZodRawShape } from "zod";
+
+type AnyZodObject = ZodObject<ZodRawShape>;
 import { NextFunction, Request, Response } from "express";
 
 export const validateRequest = (zodSchema: AnyZodObject) => async (req: Request, res: Response, next: NextFunction) => {

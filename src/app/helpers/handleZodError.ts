@@ -1,7 +1,7 @@
 import { ZodError } from "zod";
 
 export const handleZodError = (err: ZodError) => {
-    const errorMessages = err.errors.map((error) => ({
+    const errorMessages = err.issues.map((error) => ({
         field: error.path.join(" "),
         message: error.message,
     }));
