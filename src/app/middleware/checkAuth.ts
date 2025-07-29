@@ -34,7 +34,7 @@ export const checkAuth = (...authRoles: string[]) => async (req: Request, res: R
         };
 
         if (!authRoles.includes(verifiedToken.role)) {
-            throw new AppError(403, "Unauthorized access: Insufficient role");
+            throw new AppError(403, `Unauthorized access: Insufficient role ${verifiedToken.role}`);
         };
 
         req.user = verifiedToken;
