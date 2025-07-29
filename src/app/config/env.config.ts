@@ -25,10 +25,15 @@ interface IEnv {
         SMTP_PASS: string;
         SMTP_FROM: string
     };
+    REDIS: {
+        REDIS_HOST: string;
+        REDIS_PORT: string;
+        REDIS_PASSWORD: string
+    };
 };
 
 const loadEnvVariable = (): IEnv => {
-    const requiredVariable: string[] = ["PORT", "DB_URL", "NODE_ENV", "FRONTEND_URL", "JWT_SECRET", "JWT_EXPIRES_IN", "JWT_REFRESH_EXPIRES_IN", "JWT_REFRESH_SECRET", "EXPRESS_SESSION_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_CALLBACK_URL", "SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "SMTP_FROM"];
+    const requiredVariable: string[] = ["PORT", "DB_URL", "NODE_ENV", "FRONTEND_URL", "JWT_SECRET", "JWT_EXPIRES_IN", "JWT_REFRESH_EXPIRES_IN", "JWT_REFRESH_SECRET", "EXPRESS_SESSION_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CLIENT_SECRET", "GOOGLE_CALLBACK_URL", "SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "SMTP_FROM", "REDIS_HOST", "REDIS_PORT", "REDIS_PASSWORD"];
 
     requiredVariable.forEach((key) => {
         if (!process.env[key]) {
@@ -59,6 +64,11 @@ const loadEnvVariable = (): IEnv => {
             SMTP_USER: process.env.SMTP_USER as string,
             SMTP_PASS: process.env.SMTP_PASS as string,
             SMTP_FROM: process.env.SMTP_FROM as string
+        },
+        REDIS: {
+            REDIS_HOST: process.env.REDIS_HOST as string,
+            REDIS_PORT: process.env.REDIS_PORT as string,
+            REDIS_PASSWORD: process.env.REDIS_PASSWORD as string,
         }
     };
 };
