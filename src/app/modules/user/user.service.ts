@@ -4,6 +4,15 @@ import { AppError } from "../../errors/AppError";
 import { IAuthProvider, IUser } from "./user.interface";
 import { User } from "./user.model";
 
+const allGetUser = async () => {
+    const user = await User.find();
+    const totalUser = await User.countDocuments();
+    return {
+        user,
+        totalUser
+    };
+};
+
 const createUser = async (payload: Partial<IUser>) => {
     const { email, password, ...rest } = payload;
     const isExist = await User.findOne({ email });
@@ -20,7 +29,7 @@ const createUser = async (payload: Partial<IUser>) => {
 
     const user = await User.create({
         email,
-        hashPassword,
+        password: hashPassword,
         auths: [auth],
         ...rest
     });
@@ -29,5 +38,6 @@ const createUser = async (payload: Partial<IUser>) => {
 };
 
 export const userService = {
+    allGetUser,
     createUser
 };
