@@ -8,7 +8,7 @@ import { User } from '../user/user.model';
 
 // Sender Section
 const getMeParcel = async (sender: JwtPayload) => {
-    const isExistUser = await User.findById(sender.userId)
+    const isExistUser = await User.findById(sender.userId);
     if (!isExistUser) {
         throw new AppError(httpStatus.BAD_REQUEST, "User not found");
     };
@@ -17,7 +17,9 @@ const getMeParcel = async (sender: JwtPayload) => {
     //     throw new AppError(httpStatus.FORBIDDEN, "Your account is restricted from accessing parcel data.");
     // };
 
-    const parcel = await Parcel.find({ sender: sender.userId });
+    const parcel = await Parcel.find({ sender: sender.userId })
+        .populate("sender", "name email")
+        .populate("receiver", "name email phone");;
     return parcel;
 };
 
@@ -81,9 +83,79 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
     return parcel;
 };
 
+// Receiver section
+const incomingParcels = async (id: string) => {
+    const isExistUser = await User.findById(id);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+
+
+    const parcel = await Parcel.find({ receiver: id })
+        .populate("sender", "name email phone")
+        .populate("receiver", "name email");
+    return parcel;
+};
+
+const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+    };
+
+    if (isExistParcel.isBlocked) {
+        throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
+    };
+
+    if (isExistParcel.currentStatus !== "In Transit") {
+        throw new AppError(httpStatus.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
+    };
+
+    const updatedInfo = {
+        currentStatus: payload.currentStatus,
+        statusLogs: [{
+            status: payload?.statusLogs?.[0]?.status,
+            updateAt: new Date(),
+            note: payload?.statusLogs?.[0]?.note || "Parcel has been requested by sender.",
+        }],
+    }
+
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
+const deliveryHistoryParcel = async (receiver: JwtPayload) => {
+    const isExistUser = await User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const isExistParcel = await Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+    };
+
+    return isExistParcel;
+};
+
 export const parcelService = {
     getMeParcel,
     statusLogParcel,
     createParcel,
-    cancelParcel
+    cancelParcel,
+    incomingParcels,
+    confirmDeliveryParcel,
+    deliveryHistoryParcel
 };
