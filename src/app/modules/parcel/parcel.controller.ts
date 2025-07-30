@@ -52,9 +52,48 @@ const cancelParcel = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const incomingParcels = catchAsync(async (req: Request, res: Response) => {
+    const user = req.user as JwtPayload;
+    const parcel = await parcelService.incomingParcels(user.userId);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Incoming parcels retrieved successfully",
+        data: parcel
+    });
+});
+
+const confirmDeliveryParcel = catchAsync(async (req: Request, res: Response) => {
+    const receiver = req.user as JwtPayload;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = await parcelService.confirmDeliveryParcel(payload, receiver, id);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Delivery confirmed successfully",
+        data: parcel
+    });
+});
+
+const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => {
+    const receiver = req.user as JwtPayload;
+    const parcel = await parcelService.deliveryHistoryParcel(receiver);
+    const isEmpty = !parcel || (Array.isArray(parcel) && parcel.length === 0);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: isEmpty ? "You have no delivered parcels yet." : "Parcel delivery history retrieved successfully",
+        data: parcel
+    });
+});
+
 export const parcelController = {
     getMeParcel,
     statusLogParcel,
     createParcel,
-    cancelParcel
+    cancelParcel,
+    incomingParcels,
+    confirmDeliveryParcel,
+    deliveryHistoryParcel
 };
