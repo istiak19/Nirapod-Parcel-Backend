@@ -5,7 +5,12 @@ import { IAuthProvider, IUser } from "./user.interface";
 import { User } from "./user.model";
 import { JwtPayload } from "jsonwebtoken";
 
-const allGetUser = async () => {
+const allGetUser = async (token: JwtPayload) => {
+    const isExistUser = await User.findById(token.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
     const user = await User.find().select("-password");
     const totalUser = await User.countDocuments();
     return {

@@ -150,6 +150,24 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
     return isExistParcel;
 };
 
+// Admin Section
+
+const getAllParcel = async (token: JwtPayload) => {
+    const isExistUser = await User.findById(token.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const parcel = await Parcel.find()
+        .populate("sender", "name email")
+        .populate("receiver", "name email");
+    const totalParcel = await Parcel.countDocuments();
+    return {
+        parcel,
+        totalParcel
+    };
+};
+
 export const parcelService = {
     getMeParcel,
     statusLogParcel,
@@ -157,5 +175,6 @@ export const parcelService = {
     cancelParcel,
     incomingParcels,
     confirmDeliveryParcel,
-    deliveryHistoryParcel
+    deliveryHistoryParcel,
+    getAllParcel
 };
