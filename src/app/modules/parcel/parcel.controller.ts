@@ -88,6 +88,21 @@ const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => 
     });
 });
 
+// Admin section
+const getAllParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const parcel = await parcelService.getAllParcel(decodedToken);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcels retrieved successfully",
+        data: parcel.parcel,
+        meta: {
+            total: parcel.totalParcel
+        }
+    });
+});
+
 export const parcelController = {
     getMeParcel,
     statusLogParcel,
@@ -95,5 +110,6 @@ export const parcelController = {
     cancelParcel,
     incomingParcels,
     confirmDeliveryParcel,
-    deliveryHistoryParcel
+    deliveryHistoryParcel,
+    getAllParcel
 };

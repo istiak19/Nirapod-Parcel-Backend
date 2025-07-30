@@ -6,7 +6,8 @@ import { userService } from './user.service';
 import { JwtPayload } from 'jsonwebtoken';
 
 const allGetUser = catchAsync(async (req: Request, res: Response) => {
-    const user = await userService.allGetUser();
+    const decodedToken = req.user as JwtPayload;
+    const user = await userService.allGetUser(decodedToken);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
