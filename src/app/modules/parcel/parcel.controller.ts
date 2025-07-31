@@ -6,8 +6,8 @@ import { parcelService } from './parcel.service';
 import { JwtPayload } from 'jsonwebtoken';
 
 const getMeParcel = catchAsync(async (req: Request, res: Response) => {
-    const user = req.user as JwtPayload;
-    const parcel = await parcelService.getMeParcel(user);
+    const decodedToken = req.user as JwtPayload;
+    const parcel = await parcelService.getMeParcel(decodedToken);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
@@ -28,9 +28,9 @@ const statusLogParcel = catchAsync(async (req: Request, res: Response) => {
 });
 
 const createParcel = catchAsync(async (req: Request, res: Response) => {
-    const senderId = req.user as JwtPayload;
+    const decodedToken = req.user as JwtPayload;
     const payload = req.body;
-    const parcel = await parcelService.createParcel(payload, senderId.userId);
+    const parcel = await parcelService.createParcel(payload, decodedToken.userId);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.CREATED,
@@ -40,10 +40,10 @@ const createParcel = catchAsync(async (req: Request, res: Response) => {
 });
 
 const cancelParcel = catchAsync(async (req: Request, res: Response) => {
-    const sender = req.user as JwtPayload;
+    const decodedToken = req.user as JwtPayload;
     const id = req.params.id;
     const payload = req.body;
-    const parcel = await parcelService.cancelParcel(payload, sender, id);
+    const parcel = await parcelService.cancelParcel(payload, decodedToken, id);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
@@ -53,8 +53,8 @@ const cancelParcel = catchAsync(async (req: Request, res: Response) => {
 });
 
 const incomingParcels = catchAsync(async (req: Request, res: Response) => {
-    const user = req.user as JwtPayload;
-    const parcel = await parcelService.incomingParcels(user.userId);
+    const decodedToken = req.user as JwtPayload;
+    const parcel = await parcelService.incomingParcels(decodedToken.userId);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
@@ -64,10 +64,10 @@ const incomingParcels = catchAsync(async (req: Request, res: Response) => {
 });
 
 const confirmDeliveryParcel = catchAsync(async (req: Request, res: Response) => {
-    const receiver = req.user as JwtPayload;
+    const decodedToken = req.user as JwtPayload;
     const id = req.params.id;
     const payload = req.body;
-    const parcel = await parcelService.confirmDeliveryParcel(payload, receiver, id);
+    const parcel = await parcelService.confirmDeliveryParcel(payload, decodedToken, id);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
@@ -77,8 +77,8 @@ const confirmDeliveryParcel = catchAsync(async (req: Request, res: Response) => 
 });
 
 const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => {
-    const receiver = req.user as JwtPayload;
-    const parcel = await parcelService.deliveryHistoryParcel(receiver);
+    const decodedToken = req.user as JwtPayload;
+    const parcel = await parcelService.deliveryHistoryParcel(decodedToken);
     const isEmpty = !parcel || (Array.isArray(parcel) && parcel.length === 0);
     sendResponse(res, {
         success: true,
