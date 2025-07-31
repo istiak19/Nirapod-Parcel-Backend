@@ -5,6 +5,7 @@ import { IParcel } from "./parcel.interface";
 import { Parcel } from "./parcel.model";
 import { AppError } from "../../errors/AppError";
 import { User } from '../user/user.model';
+import { QueryBuilder } from '../../utils/QueryBuilder/QueryBuilder';
 
 const getTrackingParcel = async (user: JwtPayload, id: string) => {
     const isExistUser = await User.findById(user.userId);
@@ -207,13 +208,18 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
 };
 
 // Admin Section
-const getAllParcel = async (token: JwtPayload) => {
+const getAllParcel = async (token: JwtPayload, query: Record<string, string>) => {
     const isExistUser = await User.findById(token.userId);
     if (!isExistUser) {
         throw new AppError(httpStatus.BAD_REQUEST, "User not found");
     };
 
-    const parcel = await Parcel.find()
+    const searchFields = ["currentStatus"];
+    const queryBuilder = new QueryBuilder(Parcel.find(), query);
+
+    const parcel = await queryBuilder
+        .search(searchFields)
+        .modelQuery
         .populate("sender", "name email")
         .populate("receiver", "name email");
     const totalParcel = await Parcel.countDocuments();
