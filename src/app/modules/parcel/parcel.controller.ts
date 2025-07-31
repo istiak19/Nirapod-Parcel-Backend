@@ -103,7 +103,8 @@ const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => 
 // Admin section
 const getAllParcel = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
-    const parcel = await parcelService.getAllParcel(decodedToken);
+    const query = req.query;
+    const parcel = await parcelService.getAllParcel(decodedToken, query as Record<string, string>);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
