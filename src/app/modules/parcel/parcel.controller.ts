@@ -101,6 +101,19 @@ const rescheduleParcel = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const returnParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = await parcelService.returnParcel(payload, decodedToken, id);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcel returned successfully",
+        data: parcel
+    });
+});
+
 const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
     const parcel = await parcelService.deliveryHistoryParcel(decodedToken);
@@ -164,6 +177,7 @@ export const parcelController = {
     incomingParcels,
     confirmDeliveryParcel,
     rescheduleParcel,
+    returnParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
