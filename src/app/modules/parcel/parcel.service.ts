@@ -71,6 +71,10 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
         throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
     };
 
+    if (!payload.currentStatus) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Current status is required for status update.");
+    };
+
     if (isExistParcel.currentStatus === "Dispatched" || isExistParcel.currentStatus === "In Transit" || isExistParcel.currentStatus === "Delivered") {
         throw new AppError(httpStatus.FORBIDDEN, `Parcel cannot be canceled as it is already ${isExistParcel.currentStatus.toLowerCase()}.`);
     };
@@ -114,6 +118,10 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
         throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
     };
 
+    if (!payload.currentStatus) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Current status is required for status update.");
+    };
+
     if (isExistParcel.currentStatus !== "In Transit") {
         throw new AppError(httpStatus.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
     };
@@ -125,7 +133,7 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
             updateAt: new Date(),
             note: payload?.statusLogs?.[0]?.note || "Parcel has been requested by sender.",
         }],
-    }
+    };
 
     const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
         runValidators: true,
@@ -151,7 +159,6 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
 };
 
 // Admin Section
-
 const getAllParcel = async (token: JwtPayload) => {
     const isExistUser = await User.findById(token.userId);
     if (!isExistUser) {
@@ -168,6 +175,71 @@ const getAllParcel = async (token: JwtPayload) => {
     };
 };
 
+const statusParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(admin.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+    };
+
+    if (!payload.currentStatus) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Current status is required for status update.");
+    };
+
+    if (isExistParcel.currentStatus === "Delivered") {
+        throw new AppError(httpStatus.FORBIDDEN, "Cannot change status. Parcel is already delivered.");
+    };
+
+    const updatedStatus = {
+        currentStatus: payload.currentStatus,
+        statusLogs: [{
+            status: payload?.statusLogs?.[0]?.status,
+            updateAt: new Date(),
+            note: payload?.statusLogs?.[0]?.note
+        }],
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedStatus, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
+const isBlockedParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(admin.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+    };
+
+    if (typeof payload.isBlocked !== "boolean") {
+        throw new AppError(httpStatus.BAD_REQUEST, "isBlocked field is required and must be a boolean");
+    };
+
+    if (payload.isBlocked === isExistParcel.isBlocked) {
+        throw new AppError(httpStatus.BAD_REQUEST, `Parcel is already ${isExistParcel.isBlocked ? "blocked" : "unblocked"}.`);
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, { isBlocked: payload.isBlocked }, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
 export const parcelService = {
     getMeParcel,
     statusLogParcel,
@@ -176,5 +248,7 @@ export const parcelService = {
     incomingParcels,
     confirmDeliveryParcel,
     deliveryHistoryParcel,
-    getAllParcel
+    getAllParcel,
+    statusParcel,
+    isBlockedParcel
 };

@@ -14,5 +14,7 @@ router.get("/history", checkAuth("Receiver"), parcelController.deliveryHistoryPa
 router.patch("/cancel/:id", checkAuth("Sender"), parcelController.cancelParcel);
 router.get("/status-log/:id", checkAuth("Sender"), parcelController.statusLogParcel);
 router.patch("/delivered/:id", checkAuth("Receiver"), validateRequest(updateParcelZodSchema), parcelController.confirmDeliveryParcel);
+router.patch("/status/:id", checkAuth("Admin"), validateRequest(updateParcelZodSchema), parcelController.statusParcel);
+router.patch("/block/:id", checkAuth("Admin"), validateRequest(updateParcelZodSchema), parcelController.isBlockedParcel);
 
 export const parcelRoutes = router;
