@@ -34,7 +34,7 @@ const statusLogParcel = async (id: string) => {
         throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
     };
 
-    const parcel = await Parcel.findById(id).select("statusLogs");
+    const parcel = await Parcel.findById(id).select("statusLogs").populate("statusLogs.updateBy", "name email");
 
     return parcel;
 };
@@ -79,7 +79,19 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
         throw new AppError(httpStatus.FORBIDDEN, `Parcel cannot be canceled as it is already ${isExistParcel.currentStatus.toLowerCase()}.`);
     };
 
-    const parcel = await Parcel.findByIdAndUpdate(id, { ...payload }, {
+    const updatedInfo = {
+        currentStatus: payload.currentStatus,
+        $push: {
+            statusLogs: {
+                status: payload?.statusLogs?.[0]?.status,
+                updateBy: sender.userId,
+                updateAt: new Date(),
+                note: payload?.statusLogs?.[0]?.note || "Parcel has been cancelled by sender."
+            }
+        }
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
         runValidators: true,
         new: true
     });
@@ -128,11 +140,14 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
 
     const updatedInfo = {
         currentStatus: payload.currentStatus,
-        statusLogs: [{
-            status: payload?.statusLogs?.[0]?.status,
-            updateAt: new Date(),
-            note: payload?.statusLogs?.[0]?.note || "Parcel has been requested by sender.",
-        }],
+        $push: {
+            statusLogs: {
+                status: payload?.statusLogs?.[0]?.status,
+                updateBy: receiver.userId,
+                updateAt: new Date(),
+                note: payload?.statusLogs?.[0]?.note
+            }
+        }
     };
 
     const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
@@ -195,16 +210,19 @@ const statusParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: st
         throw new AppError(httpStatus.FORBIDDEN, "Cannot change status. Parcel is already delivered.");
     };
 
-    const updatedStatus = {
+    const updatedInfo = {
         currentStatus: payload.currentStatus,
-        statusLogs: [{
-            status: payload?.statusLogs?.[0]?.status,
-            updateAt: new Date(),
-            note: payload?.statusLogs?.[0]?.note
-        }],
+        $push: {
+            statusLogs: {
+                status: payload?.statusLogs?.[0]?.status,
+                updateBy: admin.userId,
+                updateAt: new Date(),
+                note: payload?.statusLogs?.[0]?.note
+            }
+        }
     };
 
-    const parcel = await Parcel.findByIdAndUpdate(id, updatedStatus, {
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
         runValidators: true,
         new: true
     });
