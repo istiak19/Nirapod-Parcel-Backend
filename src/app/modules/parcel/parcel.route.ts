@@ -7,6 +7,7 @@ import { parcelController } from "./parcel.controller";
 const router = Router();
 
 router.get("/", checkAuth("Admin"), parcelController.getAllParcel);
+router.get("/track/:trackingId", checkAuth("Admin", "Receiver", "Sender"), parcelController.getTrackingParcel);
 router.post("/", checkAuth("Sender"), validateRequest(createParcelZodSchema), parcelController.createParcel);
 router.get("/me", checkAuth("Sender"), parcelController.getMeParcel);
 router.get("/incoming", checkAuth("Receiver"), parcelController.incomingParcels);
