@@ -77,11 +77,14 @@ const userUpdate = async (userId: string, payload: Partial<IUser>, decodedToken:
 
     if (payload.isBlocked || payload.isDelete || payload.isVerified) {
         if (decodedToken.role === "Sender" || decodedToken.role === "Receiver") {
-            throw new AppError(httpStatus.FORBIDDEN, "Unauthorized access to modify user status");
+            throw new AppError(httpStatus.FORBIDDEN, `Unauthorized access to modify user status. Your role '${decodedToken.role}' is not allowed. Only admins are permitted to perform this action.`);
         };
     };
 
-    const userUpdated = await User.findByIdAndUpdate(userId, payload, { new: true, runValidators: true }).select("-password");
+    const userUpdated = await User.findByIdAndUpdate(userId, payload, {
+        new: true,
+        runValidators: true
+    }).select("-password");
 
     return userUpdated;
 };
