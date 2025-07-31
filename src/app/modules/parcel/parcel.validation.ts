@@ -26,4 +26,5 @@ export const updateParcelZodSchema = z.object({
             updatedBy: z.string().optional()
         })
     ).optional(),
+    isBlocked: z.boolean().optional(),
 });

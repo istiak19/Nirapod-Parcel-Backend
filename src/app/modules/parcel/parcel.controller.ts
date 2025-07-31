@@ -103,6 +103,32 @@ const getAllParcel = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const statusParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = await parcelService.statusParcel(payload, decodedToken, id);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcel status updated successfully",
+        data: parcel
+    });
+});
+
+const isBlockedParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = await parcelService.isBlockedParcel(payload, decodedToken, id);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcel block status updated successfully",
+        data: parcel
+    });
+});
+
 export const parcelController = {
     getMeParcel,
     statusLogParcel,
@@ -111,5 +137,7 @@ export const parcelController = {
     incomingParcels,
     confirmDeliveryParcel,
     deliveryHistoryParcel,
-    getAllParcel
+    getAllParcel,
+    statusParcel,
+    isBlockedParcel
 };
