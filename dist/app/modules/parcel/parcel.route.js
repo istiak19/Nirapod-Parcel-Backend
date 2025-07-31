@@ -15,7 +15,7 @@ router.get("/incoming", (0, checkAuth_1.checkAuth)("Receiver"), parcel_controlle
 router.get("/history", (0, checkAuth_1.checkAuth)("Receiver"), parcel_controller_1.parcelController.deliveryHistoryParcel);
 router.patch("/cancel/:id", (0, checkAuth_1.checkAuth)("Sender"), parcel_controller_1.parcelController.cancelParcel);
 router.get("/status-log/:id", (0, checkAuth_1.checkAuth)("Sender"), parcel_controller_1.parcelController.statusLogParcel);
-// router.patch("/return/:id", checkAuth("Receiver"), );
+router.patch("/return/:id", (0, checkAuth_1.checkAuth)("Receiver"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.returnParcel);
 router.patch("/reschedule/:id", (0, checkAuth_1.checkAuth)("Receiver"), parcel_controller_1.parcelController.rescheduleParcel);
 router.patch("/delivered/:id", (0, checkAuth_1.checkAuth)("Receiver"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.confirmDeliveryParcel);
 router.patch("/status/:id", (0, checkAuth_1.checkAuth)("Admin"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.statusParcel);

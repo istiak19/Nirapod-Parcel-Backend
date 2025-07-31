@@ -30,6 +30,7 @@ A secure and modular RESTful API built with **Express.js** and **Mongoose** for 
 * 📦 **Parcel management** with embedded status logs
 * 🛤 **Parcel tracking** via unique tracking IDs
 * ♻️ **Status transitions**: Requested → Approved → Dispatched → In Transit → Delivered
+* 🔁 **Receiver can return or reschedule parcels**
 * 🛡️ **Protected routes** with `checkAuth` middleware
 * 💡 **OTP system**, Google OAuth login
 * 📃 **Zod validation** for robust input handling
@@ -83,20 +84,20 @@ FRONTEND_URL=https://your-frontend-domain.com
 
 ## 📌 Role-Based Access
 
-| Role         | Capabilities                                                    |
-| ------------ | --------------------------------------------------------------- |
-| **Admin**    | View/update all users and parcels, block/unblock, change status |
-| **Sender**   | Create/cancel/view parcels, view status logs                    |
-| **Receiver** | View incoming parcels, confirm delivery, check delivery history |
+| Role         | Capabilities                                                           |
+| ------------ | ---------------------------------------------------------------------- |
+| **Admin**    | View/update all users and parcels, block/unblock, change parcel status |
+| **Sender**   | Create, cancel, and view parcels and status logs                       |
+| **Receiver** | View incoming parcels, confirm delivery, return or reschedule parcels  |
 
 ---
 
 ## 🔑 Authentication Flow
 
-* **JWT Access/Refresh tokens**
-* **Google OAuth**
-* **Password Reset** (forget, reset, change)
-* **Protected Routes** via `checkAuth` middleware
+* ✅ JWT Access/Refresh tokens
+* ✅ Google OAuth login
+* ✅ Password Reset Flow (forget → verify OTP → set new password)
+* ✅ Middleware-based role authorization
 
 ---
 
@@ -108,11 +109,18 @@ FRONTEND_URL=https://your-frontend-domain.com
 Requested → Approved → Dispatched → In Transit → Delivered
 ```
 
-Each parcel includes:
+Each parcel document includes:
 
-* `trackingId`: `TRK-YYYYMMDD-XXXXXX`
+* `trackingId`: Format → `TRK-YYYYMMDD-XXXXXX`
 * `trackingEvents[]`: `{ status, timestamp, location?, updatedBy, note }`
-* `isBlocked`, `isCanceled`, `deliveryDate`, `fee`, `receiverInfo`
+* `isBlocked`, `isCanceled`, `deliveryDate`, `fee`, `receiverInfo`, etc.
+
+Parcel actions:
+
+* ❌ Can be canceled (if not dispatched)
+* 🔁 Can be returned (by receiver)
+* 📆 Can be rescheduled (by receiver)
+* ✅ Delivery confirmation (by receiver)
 
 ---
 
@@ -128,6 +136,7 @@ Each parcel includes:
 | POST   | `/change-password` | Change password (protected) |
 | POST   | `/forget-password` | Request reset via email/OTP |
 | POST   | `/reset-password`  | Submit OTP + new password   |
+| POST   | `/set-password`    | Set a new password          |
 | GET    | `/google`          | Initiate Google login       |
 | GET    | `/google/callback` | Google OAuth callback       |
 
@@ -135,13 +144,13 @@ Each parcel includes:
 
 ### 👤 Users (`/api/v1/user`)
 
-| Method | Endpoint    | Access | Description        |
-| ------ | ----------- | ------ | ------------------ |
-| POST   | `/register` | Public | Create user        |
-| GET    | `/get-me`   | All    | Get current user   |
-| GET    | `/all-user` | Admin  | List all users     |
-| GET    | `/:id`      | Admin  | Get user by ID     |
-| PATCH  | `/:id`      | All    | Update own profile |
+| Method | Endpoint    | Access         | Description     |
+| ------ | ----------- | -------------- | --------------- |
+| POST   | `/register` | Public         | Create user     |
+| GET    | `/get-me`   | All Auth Roles | Get own profile |
+| GET    | `/all-user` | Admin          | List all users  |
+| GET    | `/:id`      | Admin          | Get user by ID  |
+| PATCH  | `/:id`      | Self/Admin     | Update user     |
 
 ---
 
@@ -150,16 +159,18 @@ Each parcel includes:
 | Method | Endpoint             | Role     | Description                   |
 | ------ | -------------------- | -------- | ----------------------------- |
 | GET    | `/`                  | Admin    | Get all parcels               |
-| GET    | `/me`                | Sender   | Sender’s parcels              |
-| POST   | `/`                  | Sender   | Create a parcel               |
+| GET    | `/me`                | Sender   | Get all sender’s parcels      |
+| POST   | `/`                  | Sender   | Create a new parcel           |
 | PATCH  | `/cancel/:id`        | Sender   | Cancel a parcel               |
-| GET    | `/incoming`          | Receiver | View parcels sent to receiver |
-| GET    | `/history`           | Receiver | Delivery history              |
-| PATCH  | `/delivered/:id`     | Receiver | Confirm delivery              |
-| GET    | `/track/:trackingId` | All      | Track parcel by ID            |
-| GET    | `/status-log/:id`    | Sender   | View status logs              |
+| GET    | `/incoming`          | Receiver | View incoming parcels         |
+| GET    | `/history`           | Receiver | View delivery history         |
+| PATCH  | `/delivered/:id`     | Receiver | Confirm parcel delivery       |
+| PATCH  | `/return/:id`        | Receiver | Mark parcel as returned       |
+| PATCH  | `/reschedule/:id`    | Receiver | Reschedule delivery           |
+| GET    | `/track/:trackingId` | All      | Track parcel via tracking ID  |
+| GET    | `/status-log/:id`    | Sender   | View status logs for a parcel |
 | PATCH  | `/status/:id`        | Admin    | Update parcel status          |
-| PATCH  | `/block/:id`         | Admin    | Block/Unblock parcel          |
+| PATCH  | `/block/:id`         | Admin    | Block or unblock a parcel     |
 
 ---
 
@@ -174,9 +185,10 @@ Each parcel includes:
 
 ## 🧪 Testing
 
-* ✅ Tested via Postman Collection (login, protected access, CRUD operations)
-* ✅ Supports status code consistency, success/failure messages
-* ✅ Validated inputs via Zod
+* ✅ Full coverage with Postman collection
+* ✅ Success/failure feedback with HTTP status codes
+* ✅ Input validation using Zod
+* ✅ Protected route testing using JWT
 
 ---
 
@@ -185,22 +197,23 @@ Each parcel includes:
 ```bash
 src/
 ├── modules/
-│   ├── auth/
-│   ├── user/
-│   ├── parcel/     # Includes status tracking logic
-│   ├── otpCode/
+│   ├── auth/        # Login, Google, Password mgmt
+│   ├── user/        # User registration & profile
+│   ├── parcel/      # Parcel management + tracking logic
+│   ├── otpCode/     # OTP verification
 ├── middlewares/
 │   ├── checkAuth.ts
 │   ├── validateRequest.ts
 ├── config/
 │   ├── env.config.ts
-├── utils/
-├── app.ts
-├── server.ts
+├── utils/           # Helper functions
+├── app.ts           # Main app entry
+├── server.ts        # HTTP server bootstrap
 ```
 
 ---
 
 ## 🧑‍💻 Contributors
 
-* **You** — Builder of Nirapod Parcel API
+* **Istiak Ahmed** — Creator and maintainer
+  GitHub: [@istiak19](https://github.com/istiak19)

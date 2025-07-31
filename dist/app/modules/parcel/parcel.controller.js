@@ -105,6 +105,18 @@ const rescheduleParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(vo
         data: parcel
     });
 }));
+const returnParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const decodedToken = req.user;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = yield parcel_service_1.parcelService.returnParcel(payload, decodedToken, id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Parcel returned successfully",
+        data: parcel
+    });
+}));
 const deliveryHistoryParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decodedToken = req.user;
     const parcel = yield parcel_service_1.parcelService.deliveryHistoryParcel(decodedToken);
@@ -164,6 +176,7 @@ exports.parcelController = {
     incomingParcels,
     confirmDeliveryParcel,
     rescheduleParcel,
+    returnParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,

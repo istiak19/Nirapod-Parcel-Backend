@@ -195,13 +195,13 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
 const rescheduleParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id: string) => {
     const isExistUser = await User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (isExistParcel.isBlocked) {
@@ -225,6 +225,55 @@ const rescheduleParcel = async (payload: Partial<IParcel>, receiver: JwtPayload,
                 updateAt: new Date(),
                 location: payload?.statusLogs?.[0]?.location || "Delivery Address",
                 note: `Parcel delivery rescheduled to ${payload.newDate}`
+            }
+        }
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
+const returnParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
+    };
+
+    if (isExistParcel.isBlocked) {
+        throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
+    };
+
+    if (isExistParcel.currentStatus === "Delivered") {
+        throw new AppError(httpStatus.BAD_REQUEST, "Delivered parcel can't be returned");
+    }
+
+    if (!payload.currentStatus) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Current status is required for status update.");
+    };
+
+    if (isExistParcel.currentStatus !== "In Transit") {
+        throw new AppError(httpStatus.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
+    };
+
+    const updatedInfo = {
+        currentStatus: payload.currentStatus,
+        $push: {
+            statusLogs: {
+                status: "Returned",
+                updateBy: receiver.userId,
+                updateAt: new Date(),
+                location: "N/A",
+                note: "Parcel has been returned by receiver"
             }
         }
     };
@@ -352,6 +401,7 @@ export const parcelService = {
     incomingParcels,
     confirmDeliveryParcel,
     rescheduleParcel,
+    returnParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,

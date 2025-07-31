@@ -181,12 +181,12 @@ const rescheduleParcel = (payload, receiver, id) => __awaiter(void 0, void 0, vo
     var _a, _b, _c, _d, _e, _f;
     const isExistUser = yield user_model_1.User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (isExistParcel.isBlocked) {
@@ -210,6 +210,50 @@ const rescheduleParcel = (payload, receiver, id) => __awaiter(void 0, void 0, vo
                 updateAt: new Date(),
                 location: ((_f = (_e = payload === null || payload === void 0 ? void 0 : payload.statusLogs) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.location) || "Delivery Address",
                 note: `Parcel delivery rescheduled to ${payload.newDate}`
+            }
+        }
+    };
+    const parcel = yield parcel_model_1.Parcel.findByIdAndUpdate(id, updatedInfo, {
+        runValidators: true,
+        new: true
+    });
+    return parcel;
+});
+const returnParcel = (payload, receiver, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistUser = yield user_model_1.User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
+    }
+    ;
+    const isExistParcel = yield parcel_model_1.Parcel.findById(id);
+    if (!isExistParcel) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
+    }
+    ;
+    if (isExistParcel.isBlocked) {
+        throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
+    }
+    ;
+    if (isExistParcel.currentStatus === "Delivered") {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Delivered parcel can't be returned");
+    }
+    if (!payload.currentStatus) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Current status is required for status update.");
+    }
+    ;
+    if (isExistParcel.currentStatus !== "In Transit") {
+        throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
+    }
+    ;
+    const updatedInfo = {
+        currentStatus: payload.currentStatus,
+        $push: {
+            statusLogs: {
+                status: "Returned",
+                updateBy: receiver.userId,
+                updateAt: new Date(),
+                location: "N/A",
+                note: "Parcel has been returned by receiver"
             }
         }
     };
@@ -324,6 +368,7 @@ exports.parcelService = {
     incomingParcels,
     confirmDeliveryParcel,
     rescheduleParcel,
+    returnParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
