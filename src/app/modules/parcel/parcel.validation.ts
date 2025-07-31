@@ -8,6 +8,7 @@ export const createParcelZodSchema = z.object({
     currentStatus: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]).optional(),
     statusLogs: z.array(z.object({
         status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+        location: z.string().optional(),
         note: z.string().optional()
     })).optional(),
     deliveryAddress: z.string(),
@@ -20,6 +21,7 @@ export const updateParcelZodSchema = z.object({
     statusLogs: z.array(
         z.object({
             status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+            location: z.string().optional(),
             note: z.string().optional(),
             updateAt: z.string().optional(),
             updatedBy: z.string().optional()

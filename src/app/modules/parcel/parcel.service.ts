@@ -64,6 +64,7 @@ const createParcel = async (payload: Partial<IParcel>, senderId: string) => {
             status: payload?.statusLogs?.[0]?.status,
             updateBy: senderId,
             updateAt: new Date(),
+            location: payload?.statusLogs?.[0]?.location || "Unknown",
             note: payload?.statusLogs?.[0]?.note || "Parcel has been requested by sender.",
         }],
     });
@@ -116,6 +117,7 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
                 status: payload?.statusLogs?.[0]?.status,
                 updateBy: sender.userId,
                 updateAt: new Date(),
+                location: payload?.statusLogs?.[0]?.location || "Sender App",
                 note: payload?.statusLogs?.[0]?.note || "Parcel has been cancelled by sender."
             }
         }
@@ -175,6 +177,7 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
                 status: payload?.statusLogs?.[0]?.status,
                 updateBy: receiver.userId,
                 updateAt: new Date(),
+                location: payload?.statusLogs?.[0]?.location || "Delivery Address",
                 note: payload?.statusLogs?.[0]?.note
             }
         }
@@ -247,6 +250,7 @@ const statusParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: st
                 status: payload?.statusLogs?.[0]?.status,
                 updateBy: admin.userId,
                 updateAt: new Date(),
+                location: payload?.statusLogs?.[0]?.location || "Admin Office",
                 note: payload?.statusLogs?.[0]?.note
             }
         }
