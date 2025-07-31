@@ -5,9 +5,9 @@ export const createParcelZodSchema = z.object({
     weight: z.number().min(0.1),
     fee: z.number().min(0),
     pickupAddress: z.string(),
-    currentStatus: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]).optional(),
+    currentStatus: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]).optional(),
     statusLogs: z.array(z.object({
-        status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+        status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]),
         location: z.string().optional(),
         note: z.string().optional()
     })).optional(),
@@ -17,10 +17,10 @@ export const createParcelZodSchema = z.object({
 });
 
 export const updateParcelZodSchema = z.object({
-    currentStatus: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]).optional(),
+    currentStatus: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]).optional(),
     statusLogs: z.array(
         z.object({
-            status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+            status: z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]),
             location: z.string().optional(),
             note: z.string().optional(),
             updateAt: z.string().optional(),

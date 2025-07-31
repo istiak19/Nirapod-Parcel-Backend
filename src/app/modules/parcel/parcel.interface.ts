@@ -1,6 +1,6 @@
 import { Types } from "mongoose";
 
-type parcelStatus = "Requested" | "Approved" | "Dispatched" | "In Transit" | "Delivered" | "Cancelled";
+type parcelStatus = "Requested" | "Approved" | "Dispatched" | "In Transit" | "Delivered" | "Cancelled" | "Returned" | "Rescheduled";
 
 export interface IParcelStatusLogs {
     status: parcelStatus;
@@ -17,6 +17,7 @@ export interface IParcel {
     type: string;
     weight: number;
     fee: number;
+    newDate?: Date;
     pickupAddress: string;
     deliveryAddress: string;
     deliveryDate: Date;

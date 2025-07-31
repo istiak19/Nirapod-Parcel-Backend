@@ -177,6 +177,48 @@ const confirmDeliveryParcel = (payload, receiver, id) => __awaiter(void 0, void 
     });
     return parcel;
 });
+const rescheduleParcel = (payload, receiver, id) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b, _c, _d, _e, _f;
+    const isExistUser = yield user_model_1.User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+    }
+    ;
+    const isExistParcel = yield parcel_model_1.Parcel.findById(id);
+    if (!isExistParcel) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+    }
+    ;
+    if (isExistParcel.isBlocked) {
+        throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
+    }
+    ;
+    if (!((_b = (_a = payload === null || payload === void 0 ? void 0 : payload.statusLogs) === null || _a === void 0 ? void 0 : _a[0]) === null || _b === void 0 ? void 0 : _b.status)) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Current status is required for status update.");
+    }
+    ;
+    if (isExistParcel.currentStatus !== "In Transit") {
+        throw new AppError_1.AppError(http_status_1.default.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
+    }
+    ;
+    const updatedInfo = {
+        deliveryDate: payload.newDate,
+        $push: {
+            statusLogs: {
+                status: (_d = (_c = payload === null || payload === void 0 ? void 0 : payload.statusLogs) === null || _c === void 0 ? void 0 : _c[0]) === null || _d === void 0 ? void 0 : _d.status,
+                updateBy: receiver.userId,
+                updateAt: new Date(),
+                location: ((_f = (_e = payload === null || payload === void 0 ? void 0 : payload.statusLogs) === null || _e === void 0 ? void 0 : _e[0]) === null || _f === void 0 ? void 0 : _f.location) || "Delivery Address",
+                note: `Parcel delivery rescheduled to ${payload.newDate}`
+            }
+        }
+    };
+    const parcel = yield parcel_model_1.Parcel.findByIdAndUpdate(id, updatedInfo, {
+        runValidators: true,
+        new: true
+    });
+    return parcel;
+});
 const deliveryHistoryParcel = (receiver) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(receiver.userId);
     if (!isExistUser) {
@@ -281,6 +323,7 @@ exports.parcelService = {
     cancelParcel,
     incomingParcels,
     confirmDeliveryParcel,
+    rescheduleParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
