@@ -6,6 +6,21 @@ import { Parcel } from "./parcel.model";
 import { AppError } from "../../errors/AppError";
 import { User } from '../user/user.model';
 
+const getTrackingParcel = async (user: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(user.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const parcel = await Parcel.findOne({ trackingId: id }).select("statusLogs");
+
+    if (!parcel) {
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found with the provided tracking ID");
+    };
+
+    return parcel;
+};
+
 // Sender Section
 const getMeParcel = async (sender: JwtPayload) => {
     const isExistUser = await User.findById(sender.userId);
@@ -19,7 +34,7 @@ const getMeParcel = async (sender: JwtPayload) => {
 
     const parcel = await Parcel.find({ sender: sender.userId })
         .populate("sender", "name email")
-        .populate("receiver", "name email phone");;
+        .populate("receiver", "name email phone");
     return parcel;
 };
 
@@ -52,6 +67,21 @@ const createParcel = async (payload: Partial<IParcel>, senderId: string) => {
             note: payload?.statusLogs?.[0]?.note || "Parcel has been requested by sender.",
         }],
     });
+
+    const user = await User.findById(parcel.receiver);
+
+    if (!user) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    if (parcel.receiver?.toString() === user._id.toString()) {
+        await User.findByIdAndUpdate(
+            user._id,
+            { $push: { parcelId: parcel._id } },
+            { runValidators: true, new: true }
+        );
+    };
+
     return parcel;
 };
 
@@ -259,6 +289,7 @@ const isBlockedParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id:
 };
 
 export const parcelService = {
+    getTrackingParcel,
     getMeParcel,
     statusLogParcel,
     createParcel,

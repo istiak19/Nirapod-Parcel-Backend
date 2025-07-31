@@ -5,6 +5,18 @@ import sendResponse from "../../utils/sendResponse";
 import { parcelService } from './parcel.service';
 import { JwtPayload } from 'jsonwebtoken';
 
+const getTrackingParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const trackingId = req.params.trackingId;
+    const parcel = await parcelService.getTrackingParcel(decodedToken, trackingId);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcel tracking retrieved successfully",
+        data: parcel
+    });
+});
+
 const getMeParcel = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
     const parcel = await parcelService.getMeParcel(decodedToken);
@@ -130,6 +142,7 @@ const isBlockedParcel = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const parcelController = {
+    getTrackingParcel,
     getMeParcel,
     statusLogParcel,
     createParcel,
