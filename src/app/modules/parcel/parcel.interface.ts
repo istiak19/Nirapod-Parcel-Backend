@@ -6,6 +6,7 @@ export interface IParcelStatusLogs {
     status: parcelStatus;
     updateAt?: Date;
     updateBy: Types.ObjectId;
+    location: string;
     note?: string
 };
 

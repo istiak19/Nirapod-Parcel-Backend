@@ -13,6 +13,9 @@ const statusLogSchema = new Schema<IParcelStatusLogs>({
     updateAt: {
         type: Date
     },
+    location: {
+        type: String
+    },
     note: {
         type: String
     }
