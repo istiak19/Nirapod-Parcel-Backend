@@ -4,7 +4,7 @@ import { IParcel, IParcelStatusLogs } from "./parcel.interface";
 const statusLogSchema = new Schema<IParcelStatusLogs>({
     status: {
         type: String,
-        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]
+        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]
     },
     updateBy: {
         type: Schema.Types.ObjectId,
@@ -66,7 +66,7 @@ const parcelSchema = new Schema<IParcel>({
     },
     currentStatus: {
         type: String,
-        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"],
+        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"],
         default: "Requested"
     },
     statusLogs: [statusLogSchema],

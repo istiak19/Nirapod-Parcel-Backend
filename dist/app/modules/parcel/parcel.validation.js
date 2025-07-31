@@ -7,9 +7,9 @@ exports.createParcelZodSchema = zod_1.z.object({
     weight: zod_1.z.number().min(0.1),
     fee: zod_1.z.number().min(0),
     pickupAddress: zod_1.z.string(),
-    currentStatus: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]).optional(),
+    currentStatus: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]).optional(),
     statusLogs: zod_1.z.array(zod_1.z.object({
-        status: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+        status: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]),
         location: zod_1.z.string().optional(),
         note: zod_1.z.string().optional()
     })).optional(),
@@ -18,9 +18,9 @@ exports.createParcelZodSchema = zod_1.z.object({
     receiver: zod_1.z.string(),
 });
 exports.updateParcelZodSchema = zod_1.z.object({
-    currentStatus: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]).optional(),
+    currentStatus: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]).optional(),
     statusLogs: zod_1.z.array(zod_1.z.object({
-        status: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]),
+        status: zod_1.z.enum(["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]),
         location: zod_1.z.string().optional(),
         note: zod_1.z.string().optional(),
         updateAt: zod_1.z.string().optional(),

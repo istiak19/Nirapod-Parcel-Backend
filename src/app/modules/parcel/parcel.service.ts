@@ -192,6 +192,51 @@ const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPay
     return parcel;
 };
 
+const rescheduleParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+    };
+
+    if (isExistParcel.isBlocked) {
+        throw new AppError(httpStatus.FORBIDDEN, "This parcel is blocked and cannot be accessed.");
+    };
+
+    if (!payload?.statusLogs?.[0]?.status) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Current status is required for status update.");
+    };
+
+    if (isExistParcel.currentStatus !== "In Transit") {
+        throw new AppError(httpStatus.FORBIDDEN, `Parcel can only be marked as 'Delivered' if it is currently 'In Transit'. Current status is '${isExistParcel.currentStatus}'.`);
+    };
+
+    const updatedInfo = {
+        deliveryDate: payload.newDate,
+        $push: {
+            statusLogs: {
+                status: payload?.statusLogs?.[0]?.status,
+                updateBy: receiver.userId,
+                updateAt: new Date(),
+                location: payload?.statusLogs?.[0]?.location || "Delivery Address",
+                note: `Parcel delivery rescheduled to ${payload.newDate}`
+            }
+        }
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, updatedInfo, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
 const deliveryHistoryParcel = async (receiver: JwtPayload) => {
     const isExistUser = await User.findById(receiver.userId);
     if (!isExistUser) {
@@ -306,6 +351,7 @@ export const parcelService = {
     cancelParcel,
     incomingParcels,
     confirmDeliveryParcel,
+    rescheduleParcel,
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,

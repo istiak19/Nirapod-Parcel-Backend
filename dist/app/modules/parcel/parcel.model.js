@@ -5,7 +5,7 @@ const mongoose_1 = require("mongoose");
 const statusLogSchema = new mongoose_1.Schema({
     status: {
         type: String,
-        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"]
+        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"]
     },
     updateBy: {
         type: mongoose_1.Schema.Types.ObjectId,
@@ -66,7 +66,7 @@ const parcelSchema = new mongoose_1.Schema({
     },
     currentStatus: {
         type: String,
-        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled"],
+        enum: ["Requested", "Approved", "Dispatched", "In Transit", "Delivered", "Cancelled", "Rescheduled", "Returned"],
         default: "Requested"
     },
     statusLogs: [statusLogSchema],
