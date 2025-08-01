@@ -39,12 +39,13 @@ const getMeParcel = (sender) => __awaiter(void 0, void 0, void 0, function* () {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    // if (isExistUser.isBlocked === "Blocked" || isExistUser.isBlocked === "Inactive" || isExistUser.isDelete == true) {
-    //     throw new AppError(httpStatus.FORBIDDEN, "Your account is restricted from accessing parcel data.");
-    // };
     const parcel = yield parcel_model_1.Parcel.find({ sender: sender.userId })
         .populate("sender", "name email")
         .populate("receiver", "name email phone");
+    if (!parcel.length) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
+    }
+    ;
     return parcel;
 });
 const statusLogParcel = (id) => __awaiter(void 0, void 0, void 0, function* () {
@@ -279,6 +280,10 @@ const deliveryHistoryParcel = (receiver) => __awaiter(void 0, void 0, void 0, fu
     const isExistParcel = yield parcel_model_1.Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
     if (!isExistParcel) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
+    }
+    ;
+    if (!isExistParcel.length) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "You have no delivered parcels yet.");
     }
     ;
     return isExistParcel;

@@ -117,11 +117,10 @@ const returnParcel = catchAsync(async (req: Request, res: Response) => {
 const deliveryHistoryParcel = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
     const parcel = await parcelService.deliveryHistoryParcel(decodedToken);
-    const isEmpty = !parcel || (Array.isArray(parcel) && parcel.length === 0);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: isEmpty ? "You have no delivered parcels yet." : "Parcel delivery history retrieved successfully",
+        message: "Parcel delivery history retrieved successfully",
         data: parcel
     });
 });
