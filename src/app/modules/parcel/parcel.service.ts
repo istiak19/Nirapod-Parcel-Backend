@@ -10,7 +10,7 @@ import { QueryBuilder } from '../../utils/QueryBuilder/QueryBuilder';
 const getTrackingParcel = async (user: JwtPayload, id: string) => {
     const isExistUser = await User.findById(user.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const parcel = await Parcel.findOne({ trackingId: id }).select("statusLogs");
@@ -26,7 +26,7 @@ const getTrackingParcel = async (user: JwtPayload, id: string) => {
 const getMeParcel = async (sender: JwtPayload) => {
     const isExistUser = await User.findById(sender.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     // if (isExistUser.isBlocked === "Blocked" || isExistUser.isBlocked === "Inactive" || isExistUser.isDelete == true) {
@@ -43,7 +43,7 @@ const statusLogParcel = async (id: string) => {
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (isExistParcel.isBlocked) {
@@ -73,7 +73,7 @@ const createParcel = async (payload: Partial<IParcel>, senderId: string) => {
     const user = await User.findById(parcel.receiver);
 
     if (!user) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     if (parcel.receiver?.toString() === user._id.toString()) {
@@ -90,13 +90,13 @@ const createParcel = async (payload: Partial<IParcel>, senderId: string) => {
 const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: string) => {
     const isExistUser = await User.findById(sender.userId)
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (isExistParcel.isBlocked) {
@@ -136,27 +136,33 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
 const incomingParcels = async (id: string) => {
     const isExistUser = await User.findById(id);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-
-
-    const parcel = await Parcel.find({ receiver: id })
+    const parcels = await Parcel.find({
+        receiver: id,
+        currentStatus: { $nin: ["Delivered", "Returned", "Cancelled"] }
+    })
         .populate("sender", "name email phone")
-        .populate("receiver", "name email");
-    return parcel;
+        .populate("receiver", "name email")
+
+    if (!parcels.length) {
+        throw new AppError(httpStatus.NOT_FOUND, "No incoming parcel found");
+    };
+
+    return parcels;
 };
 
 const confirmDeliveryParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id: string) => {
     const isExistUser = await User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (isExistParcel.isBlocked) {
@@ -289,13 +295,13 @@ const returnParcel = async (payload: Partial<IParcel>, receiver: JwtPayload, id:
 const deliveryHistoryParcel = async (receiver: JwtPayload) => {
     const isExistUser = await User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     return isExistParcel;
@@ -305,7 +311,7 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
 const getAllParcel = async (token: JwtPayload, query: Record<string, string>) => {
     const isExistUser = await User.findById(token.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const searchFields = ["currentStatus"];
@@ -326,13 +332,13 @@ const getAllParcel = async (token: JwtPayload, query: Record<string, string>) =>
 const statusParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: string) => {
     const isExistUser = await User.findById(admin.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (!payload.currentStatus) {
@@ -367,13 +373,13 @@ const statusParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: st
 const isBlockedParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: string) => {
     const isExistUser = await User.findById(admin.userId);
     if (!isExistUser) {
-        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
     const isExistParcel = await Parcel.findById(id);
 
     if (!isExistParcel) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Parcel not found");
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
     };
 
     if (typeof payload.isBlocked !== "boolean") {

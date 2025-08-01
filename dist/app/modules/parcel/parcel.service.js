@@ -22,7 +22,7 @@ const QueryBuilder_1 = require("../../utils/QueryBuilder/QueryBuilder");
 const getTrackingParcel = (user, id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(user.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const parcel = yield parcel_model_1.Parcel.findOne({ trackingId: id }).select("statusLogs");
@@ -36,7 +36,7 @@ const getTrackingParcel = (user, id) => __awaiter(void 0, void 0, void 0, functi
 const getMeParcel = (sender) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(sender.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     // if (isExistUser.isBlocked === "Blocked" || isExistUser.isBlocked === "Inactive" || isExistUser.isDelete == true) {
@@ -50,7 +50,7 @@ const getMeParcel = (sender) => __awaiter(void 0, void 0, void 0, function* () {
 const statusLogParcel = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (isExistParcel.isBlocked) {
@@ -72,7 +72,7 @@ const createParcel = (payload, senderId) => __awaiter(void 0, void 0, void 0, fu
             }] }));
     const user = yield user_model_1.User.findById(parcel.receiver);
     if (!user) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     if (((_g = parcel.receiver) === null || _g === void 0 ? void 0 : _g.toString()) === user._id.toString()) {
@@ -85,12 +85,12 @@ const cancelParcel = (payload, sender, id) => __awaiter(void 0, void 0, void 0, 
     var _a, _b, _c, _d, _e, _f;
     const isExistUser = yield user_model_1.User.findById(sender.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (isExistParcel.isBlocked) {
@@ -127,24 +127,31 @@ const cancelParcel = (payload, sender, id) => __awaiter(void 0, void 0, void 0, 
 const incomingParcels = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(id);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    const parcel = yield parcel_model_1.Parcel.find({ receiver: id })
+    const parcels = yield parcel_model_1.Parcel.find({
+        receiver: id,
+        currentStatus: { $nin: ["Delivered", "Returned", "Cancelled"] }
+    })
         .populate("sender", "name email phone")
         .populate("receiver", "name email");
-    return parcel;
+    if (!parcels.length) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No incoming parcel found");
+    }
+    ;
+    return parcels;
 });
 const confirmDeliveryParcel = (payload, receiver, id) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e, _f;
     const isExistUser = yield user_model_1.User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (isExistParcel.isBlocked) {
@@ -266,12 +273,12 @@ const returnParcel = (payload, receiver, id) => __awaiter(void 0, void 0, void 0
 const deliveryHistoryParcel = (receiver) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(receiver.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     return isExistParcel;
@@ -280,7 +287,7 @@ const deliveryHistoryParcel = (receiver) => __awaiter(void 0, void 0, void 0, fu
 const getAllParcel = (token, query) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(token.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const searchFields = ["currentStatus"];
@@ -300,12 +307,12 @@ const statusParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0, f
     var _a, _b, _c, _d, _e, _f;
     const isExistUser = yield user_model_1.User.findById(admin.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (!payload.currentStatus) {
@@ -337,12 +344,12 @@ const statusParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0, f
 const isBlockedParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(admin.userId);
     if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
     if (!isExistParcel) {
-        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Parcel not found");
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
     ;
     if (typeof payload.isBlocked !== "boolean") {
