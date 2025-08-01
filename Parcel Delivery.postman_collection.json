@@ -1,0 +1,2698 @@
+{
+	"info": {
+		"_postman_id": "7b0bd933-5a86-4f4e-87db-e783e621d90e",
+		"name": "Parcel Delivery",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40122875"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Ahamed\",\r\n    \"email\": \"istiakahamed0619@gmail.com\",\r\n    \"password\": \"Abcd@123\",\r\n    \"phone\": \"01712345670\",\r\n    \"address\": \"Dhaka, Bangladesh\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/user/register",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"register"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "521"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:40:26 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"209-5BjelYKMMZFLFSJOzG5/P4tn/q4\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::h5zk8-1754041220618-261a062ef73b"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User created successfully\",\n    \"data\": {\n        \"name\": \"Ahamed\",\n        \"email\": \"istiakahamed0619@gmail.com\",\n        \"password\": \"$2b$10$CsOzQeASWW9OziEJDQhBE.F1HBDSkhvlesMeFCCp9.IHnQpn5tFhe\",\n        \"role\": \"Receiver\",\n        \"phone\": \"01712345670\",\n        \"address\": \"Dhaka, Bangladesh\",\n        \"isBlocked\": \"Active\",\n        \"isVerified\": false,\n        \"isDelete\": false,\n        \"auths\": [\n            {\n                \"provider\": \"credentials\",\n                \"providerId\": \"istiakahamed0619@gmail.com\"\n            }\n        ],\n        \"parcelId\": [],\n        \"_id\": \"688c8b8a8349ddd62f4f23c4\",\n        \"createdAt\": \"2025-08-01T09:40:26.009Z\",\n        \"updatedAt\": \"2025-08-01T09:40:26.009Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Get all User",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTMxMSwiZXhwIjoxNzU0MTI3NzExfQ.iquajfJBnPZ7zXo6qmlaCinHYyCnjXEt2EAtjS6xQp8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/user/all-user",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"all-user"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:42:08 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"a6b-MsBhNujU/NCEuAwSK/O4jkqFptY\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "BYPASS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::kzkfh-1754041327275-a13e220fa96a"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Users retrieved successfully\",\n    \"meta\": {\n        \"total\": 6\n    },\n    \"data\": [\n        {\n            \"_id\": \"6888583e823151521748e711\",\n            \"name\": \"Afifa\",\n            \"email\": \"afifa@gmail.com\",\n            \"role\": \"Admin\",\n            \"phone\": \"01712345678\",\n            \"address\": \"Jashore, Bangladesh\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"afifa19@gmail.com\"\n                }\n            ],\n            \"parcelId\": [],\n            \"createdAt\": \"2025-07-29T05:12:30.517Z\",\n            \"updatedAt\": \"2025-07-29T09:10:30.856Z\"\n        },\n        {\n            \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n            \"name\": \"ISTIAK AHAMED\",\n            \"email\": \"istiak15-14128@diu.edu.bd\",\n            \"role\": \"Sender\",\n            \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocKYFbVr8zBXWub0IcEW-y4aKf6GHKJmrU01x04vwazP_1hYS87Y0Q=s96-c\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"google\",\n                    \"providerId\": \"102709187994870422672\"\n                },\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"istiak15-14128@diu.edu.bd\"\n                }\n            ],\n            \"parcelId\": [],\n            \"createdAt\": \"2025-07-29T05:22:07.039Z\",\n            \"updatedAt\": \"2025-07-31T04:22:27.690Z\",\n            \"phone\": \"01712345678\"\n        },\n        {\n            \"_id\": \"6888f15286361c0ddd575170\",\n            \"name\": \"Labiba\",\n            \"email\": \"labiba@gmail.com\",\n            \"role\": \"Receiver\",\n            \"phone\": \"01712345679\",\n            \"address\": \"Kushtia, Bangladesh\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"labiba@gmail.com\"\n                }\n            ],\n            \"parcelId\": [\n                \"688b384b84a4d7c265a59613\"\n            ],\n            \"createdAt\": \"2025-07-29T16:05:38.079Z\",\n            \"updatedAt\": \"2025-07-31T09:32:59.331Z\"\n        },\n        {\n            \"_id\": \"688b04cabbaa493b3133b642\",\n            \"name\": \"Anik\",\n            \"email\": \"anik@gmail.com\",\n            \"role\": \"Receiver\",\n            \"phone\": \"01712345670\",\n            \"address\": \"Rajshahi, Bangladesh\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"anik@gmail.com\"\n                }\n            ],\n            \"parcelId\": [\n                \"688b07f6c3f04fd4440940cc\",\n                \"688b371384a4d7c265a5960b\",\n                \"688c8769c78fadfb48e4413d\"\n            ],\n            \"createdAt\": \"2025-07-31T05:53:14.671Z\",\n            \"updatedAt\": \"2025-08-01T09:22:49.677Z\"\n        },\n        {\n            \"_id\": \"688b04febbaa493b3133b647\",\n            \"name\": \"Istiak Ahamed Anik\",\n            \"email\": \"istiakanik79@gmail.com\",\n            \"role\": \"Receiver\",\n            \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocLcKk1X7178-aV8HBRNaB-Av9NptXTwlwkueqj8GfSTxAZJGt9F=s96-c\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"google\",\n                    \"providerId\": \"109712330837923231989\"\n                }\n            ],\n            \"parcelId\": [\n                \"688b399d84a4d7c265a5961c\"\n            ],\n            \"createdAt\": \"2025-07-31T05:54:06.638Z\",\n            \"updatedAt\": \"2025-07-31T17:09:44.139Z\"\n        },\n        {\n            \"_id\": \"688c8b8a8349ddd62f4f23c4\",\n            \"name\": \"Ahamed\",\n            \"email\": \"istiakahamed0619@gmail.com\",\n            \"role\": \"Receiver\",\n            \"phone\": \"01712345670\",\n            \"address\": \"Dhaka, Bangladesh\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": false,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"istiakahamed0619@gmail.com\"\n                }\n            ],\n            \"parcelId\": [],\n            \"createdAt\": \"2025-08-01T09:40:26.009Z\",\n            \"updatedAt\": \"2025-08-01T09:40:26.009Z\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get-me",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Get Me",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTMxMSwiZXhwIjoxNzU0MTI3NzExfQ.iquajfJBnPZ7zXo6qmlaCinHYyCnjXEt2EAtjS6xQp8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/user/get-me",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"get-me"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "426"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:42:46 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"1aa-RCH7clHH4aAlJ9aRoFIyb1vP76o\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "BYPASS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::q6wwg-1754041365867-79adfe08e19a"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User retrieved successfully\",\n    \"data\": {\n        \"_id\": \"6888583e823151521748e711\",\n        \"name\": \"Afifa\",\n        \"email\": \"afifa@gmail.com\",\n        \"role\": \"Admin\",\n        \"phone\": \"01712345678\",\n        \"address\": \"Jashore, Bangladesh\",\n        \"isBlocked\": \"Active\",\n        \"isVerified\": true,\n        \"isDelete\": false,\n        \"auths\": [\n            {\n                \"provider\": \"credentials\",\n                \"providerId\": \"afifa19@gmail.com\"\n            }\n        ],\n        \"parcelId\": [],\n        \"createdAt\": \"2025-07-29T05:12:30.517Z\",\n        \"updatedAt\": \"2025-07-29T09:10:30.856Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Updated",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "User updated",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDAyMDgzOCwiZXhwIjoxNzU0MTA3MjM4fQ.aUHQWPsuDA7KvhUxcfZEvDO3weAt_2wj3uuTLskhZBQ",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"role\": \"Sender\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/user/688c8b8a8349ddd62f4f23c4",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"688c8b8a8349ddd62f4f23c4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "445"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:43:49 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"1bd-t7U+HbYHEeE4yba/5PS25JGwH+E\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::csj5g-1754041428945-d6017827a4a5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User updated successfully\",\n    \"data\": {\n        \"_id\": \"688c8b8a8349ddd62f4f23c4\",\n        \"name\": \"Ahamed\",\n        \"email\": \"istiakahamed0619@gmail.com\",\n        \"role\": \"Sender\",\n        \"phone\": \"01712345670\",\n        \"address\": \"Dhaka, Bangladesh\",\n        \"isBlocked\": \"Active\",\n        \"isVerified\": false,\n        \"isDelete\": false,\n        \"auths\": [\n            {\n                \"provider\": \"credentials\",\n                \"providerId\": \"istiakahamed0619@gmail.com\"\n            }\n        ],\n        \"parcelId\": [],\n        \"createdAt\": \"2025-08-01T09:40:26.009Z\",\n        \"updatedAt\": \"2025-08-01T09:43:49.509Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Get single",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Get User single",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTMxMSwiZXhwIjoxNzU0MTI3NzExfQ.iquajfJBnPZ7zXo6qmlaCinHYyCnjXEt2EAtjS6xQp8",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/user/688c8b8a8349ddd62f4f23c4",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"user",
+										"688c8b8a8349ddd62f4f23c4"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "447"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:44:30 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"1bf-opyzmiirWLdmWY2WNYhDsUBBsFE\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "BYPASS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::2bsgt-1754041469813-151c07e537bd"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User retrieved successfully\",\n    \"data\": {\n        \"_id\": \"688c8b8a8349ddd62f4f23c4\",\n        \"name\": \"Ahamed\",\n        \"email\": \"istiakahamed0619@gmail.com\",\n        \"role\": \"Sender\",\n        \"phone\": \"01712345670\",\n        \"address\": \"Dhaka, Bangladesh\",\n        \"isBlocked\": \"Active\",\n        \"isVerified\": false,\n        \"isDelete\": false,\n        \"auths\": [\n            {\n                \"provider\": \"credentials\",\n                \"providerId\": \"istiakahamed0619@gmail.com\"\n            }\n        ],\n        \"parcelId\": [],\n        \"createdAt\": \"2025-08-01T09:40:26.009Z\",\n        \"updatedAt\": \"2025-08-01T09:43:49.509Z\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"istiak15-14128@diu.edu.bd\",\r\n    \"password\": \"Abcd@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/login",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Encoding",
+									"value": "br"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:41:30 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"467-pgsYtK85wJdATvZn9NHvrJqTU9Q\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQxMjkwLCJleHAiOjE3NTQxMjc2OTB9.AKZF1fjAy9vpDXit9C4bbS5chmrWnueIJzjBGvnpYJk; Path=/; HttpOnly; Secure; SameSite=None"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQxMjkwLCJleHAiOjE3NTY2MzMyOTB9.LYK34W4CCtXPhwKev3PElhe5N8Bzrz2LKoTxx-ePNZs; Path=/; HttpOnly; Secure; SameSite=None"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::x84rb-1754041290290-366c76ef8970"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQxMjkwLCJleHAiOjE3NTQxMjc2OTB9.AKZF1fjAy9vpDXit9C4bbS5chmrWnueIJzjBGvnpYJk\",\n        \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQxMjkwLCJleHAiOjE3NTY2MzMyOTB9.LYK34W4CCtXPhwKev3PElhe5N8Bzrz2LKoTxx-ePNZs\",\n        \"user\": {\n            \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n            \"name\": \"ISTIAK AHAMED\",\n            \"email\": \"istiak15-14128@diu.edu.bd\",\n            \"role\": \"Sender\",\n            \"picture\": \"https://lh3.googleusercontent.com/a/ACg8ocKYFbVr8zBXWub0IcEW-y4aKf6GHKJmrU01x04vwazP_1hYS87Y0Q=s96-c\",\n            \"isBlocked\": \"Active\",\n            \"isVerified\": true,\n            \"isDelete\": false,\n            \"auths\": [\n                {\n                    \"provider\": \"google\",\n                    \"providerId\": \"102709187994870422672\"\n                },\n                {\n                    \"provider\": \"credentials\",\n                    \"providerId\": \"istiak15-14128@diu.edu.bd\"\n                }\n            ],\n            \"parcelId\": [],\n            \"createdAt\": \"2025-07-29T05:22:07.039Z\",\n            \"updatedAt\": \"2025-07-31T04:22:27.690Z\",\n            \"phone\": \"01712345678\"\n        }\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Forget password",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Forget password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"istiak15-14128@diu.edu.bd\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/forget-password",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"forget-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:48:22 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"34-CmanGpgIuP+ti/AvBLEZB/NCmZ0\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::447wf-1754041697259-f36e600e4124"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Email sent successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Refresh-login",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Refresh-login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/refresh-token",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"refresh-token"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "313"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:48:55 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"139-ffqJ6u6AbGJUOTc3fb5v41zMMzE\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::lmz4k-1754041734896-2875bd1804e6"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User logged in successfully\",\n    \"data\": {\n        \"accessToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTczNSwiZXhwIjoxNzU0MTI4MTM1fQ.Al5L97tylp_28qAFOBB7SN0YBROEaTRoZFC1_lC6CnE\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "Set-password",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Set Passowrd",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTMxMSwiZXhwIjoxNzU0MTI3NzExfQ.iquajfJBnPZ7zXo6qmlaCinHYyCnjXEt2EAtjS6xQp8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": \"Abcd@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/set-password",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"set-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "63"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:50:09 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"3f-Q0nHLBaF0ZxRQQ1P8/OUDG3btkk\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::x84rb-1754041808926-e426ef7ddf43"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Password set password successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Change-password",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Change password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTMxMSwiZXhwIjoxNzU0MTI3NzExfQ.iquajfJBnPZ7zXo6qmlaCinHYyCnjXEt2EAtjS6xQp8",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"oldPassword\":\"Abcd@123\",\r\n    \"newPassword\":\"Abcd@124\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/change-password",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"change-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:51:16 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"3a-q68W5NWhqX5poAtHZphYySdDRQ8\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::hw7j7-1754041875726-07b1bc556116"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Password changed successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Reset-password",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Reset password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MTk5MCwiZXhwIjoxNzU0MTI4MzkwfQ.FCaHmvLloRiAG4vjuftaTXIFaPpTIzgniqFkVMMt_00",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":\"6888583e823151521748e711\",\r\n    \"newPassword\":\"Abcd@123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/reset-password",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:53:38 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"3a-q68W5NWhqX5poAtHZphYySdDRQ8\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::5gdk5-1754042017730-dde8654b1044"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"Password changed successfully\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Logout",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/auth/logout",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:54:29 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"44-/WI4ZH0J4JdCh6dGVL4jA/ce05A\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "accessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "refreshToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Lax"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::qzf5t-1754042069583-3dafbc8a075b"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"User logout in successfully\",\n    \"data\": null\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "OTP",
+			"item": [
+				{
+					"name": "Send",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Send",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\":\"Ahamed\",\r\n    \"email\":\"istiakahamed0619@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/otp/send",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"otp",
+										"send"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "85"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:56:12 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"55-0fJKR5mBiQ0yXTIMfXLAP0SovRo\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::rq8mc-1754042170593-4934a71a6161"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"A verification code has been sent to your email address.\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Verify",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": [
+						{
+							"name": "Verify",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"istiakahamed0619@gmail.com\",\r\n    \"otp\":\"130527\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/otp/verify",
+									"protocol": "https",
+									"host": [
+										"nirapod-parcel-backend",
+										"vercel",
+										"app"
+									],
+									"path": [
+										"api",
+										"v1",
+										"otp",
+										"verify"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "public, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Content-Length",
+									"value": "68"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 01 Aug 2025 09:57:07 GMT"
+								},
+								{
+									"key": "Etag",
+									"value": "W/\"44-EQnA2kemwJ+CQDp3O9czmdsSySA\""
+								},
+								{
+									"key": "Server",
+									"value": "Vercel"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=63072000; includeSubDomains; preload"
+								},
+								{
+									"key": "Vary",
+									"value": "Origin"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "X-Vercel-Cache",
+									"value": "MISS"
+								},
+								{
+									"key": "X-Vercel-Id",
+									"value": "bom1::iad1::ltkq6-1754042227249-25b71923cb19"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"message\": \"The OTP has been verified successfully.\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Parcels",
+			"item": [
+				{
+					"name": "Sender",
+					"item": [
+						{
+							"name": "Create",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Parcel create",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQyMzE3LCJleHAiOjE3NTQxMjg3MTd9.xdfWFsJxjYlkfwboAKTJvdz1FQhbtFRC_DNzugM8Q9I",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"type\": \"Fashion & Clothing\",\r\n    \"weight\": 1.2,\r\n    \"fee\": 180.00,\r\n    \"currentStatus\": \"Requested\",\r\n    \"pickupAddress\": \"Mirpur 10, Dhaka\",\r\n    \"deliveryAddress\": \"Kotwali, Barishal\",\r\n    \"deliveryDate\": \"2025-08-14\",\r\n    \"receiver\": \"688b04cabbaa493b3133b642\",\r\n    \"statusLogs\": [\r\n        {\r\n            \"status\": \"Requested\",\r\n            \"location\": \"Dhaka\",\r\n            \"note\": \"Order placed for Eid delivery.\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels"
+											]
+										}
+									},
+									"status": "Created",
+									"code": 201,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Length",
+											"value": "670"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:01:36 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"29e-xkcA5TSIXjNwNRayTsMNbMsGM4M\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::7k8vt-1754042495708-887ac8beafd2"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel created successfully\",\n    \"data\": {\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n        \"currentStatus\": \"Requested\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:01:36.064Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Get me",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Parcel get me",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQyMzE3LCJleHAiOjE3NTQxMjg3MTd9.xdfWFsJxjYlkfwboAKTJvdz1FQhbtFRC_DNzugM8Q9I",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/me",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"me"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:02:09 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"1376-+KDZWIMA0xU4MZuBc2S0raTp0JA\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::xmp68-1754042527321-a65c7981ef39"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel retrieved successfully\",\n    \"data\": [\n        {\n            \"_id\": \"688b371384a4d7c265a5960b\",\n            \"trackingId\": \"TRK-20250731-une3sd\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\",\n                \"phone\": \"01712345670\"\n            },\n            \"type\": \"Electronics\",\n            \"weight\": 3.5,\n            \"fee\": 350,\n            \"pickupAddress\": \"123 Gulshan Ave, Dhaka\",\n            \"deliveryAddress\": \"House 45, Block B, Halishahar, Chattogram\",\n            \"deliveryDate\": \"2025-08-10T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:27:47.253Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Sender submitted parcel request.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:27:47.264Z\",\n            \"updatedAt\": \"2025-07-31T09:27:47.264Z\"\n        },\n        {\n            \"_id\": \"688b384b84a4d7c265a59613\",\n            \"trackingId\": \"TRK-20250731-gbhvuo\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"6888f15286361c0ddd575170\",\n                \"name\": \"Labiba\",\n                \"email\": \"labiba@gmail.com\",\n                \"phone\": \"01712345679\"\n            },\n            \"type\": \"Books\",\n            \"weight\": 1.5,\n            \"fee\": 200,\n            \"pickupAddress\": \"New Market Area, Kushtia\",\n            \"deliveryAddress\": \"Chowgacha Bazar, Jessore\",\n            \"deliveryDate\": \"2025-08-09T00:00:00.000Z\",\n            \"currentStatus\": \"Approved\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:32:59.147Z\",\n                    \"location\": \"Kushtia\",\n                    \"note\": \"Parcel created by sender.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:35:31.076Z\",\n                    \"location\": \"Kushtia Hub\",\n                    \"note\": \"Parcel has been Approved by admin.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:32:59.152Z\",\n            \"updatedAt\": \"2025-07-31T09:35:31.077Z\"\n        },\n        {\n            \"_id\": \"688b399d84a4d7c265a5961c\",\n            \"trackingId\": \"TRK-20250731-1vfti4\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04febbaa493b3133b647\",\n                \"name\": \"Istiak Ahamed Anik\",\n                \"email\": \"istiakanik79@gmail.com\"\n            },\n            \"type\": \"Medical Supplies\",\n            \"weight\": 2,\n            \"fee\": 280,\n            \"pickupAddress\": \"Rajshahi Medical College Gate, Rajshahi\",\n            \"deliveryAddress\": \"Housing Area, Kushtia\",\n            \"deliveryDate\": \"2025-08-13T00:00:00.000Z\",\n            \"currentStatus\": \"Delivered\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:38:37.983Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Requested by sender.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:23.013Z\",\n                    \"location\": \"Rajshahi Office\",\n                    \"note\": \"Approved by admin.\"\n                },\n                {\n                    \"status\": \"Dispatched\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:59.129Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"In Transit\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T17:13:25.370Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"Rescheduled\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:24:46.528Z\",\n                    \"location\": \"Delivery Address\",\n                    \"note\": \"Parcel delivery rescheduled to 2025-08-13\"\n                },\n                {\n                    \"status\": \"Returned\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:43:22.231Z\",\n                    \"location\": \"N/A\",\n                    \"note\": \"Parcel has been returned by receiver\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:38:37.986Z\",\n            \"updatedAt\": \"2025-07-31T17:43:22.232Z\"\n        },\n        {\n            \"_id\": \"688c8769c78fadfb48e4413d\",\n            \"trackingId\": \"TRK-20250801-hkls28\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\",\n                \"phone\": \"01712345670\"\n            },\n            \"type\": \"Grocery\",\n            \"weight\": 3,\n            \"fee\": 300,\n            \"pickupAddress\": \"Shaheb Bazar, Rajshahi\",\n            \"deliveryAddress\": \"Nikunja, Dhaka\",\n            \"deliveryDate\": \"2025-08-15T00:00:00.000Z\",\n            \"currentStatus\": \"Approved\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T09:22:49.223Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Fresh vegetables and fruits.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-08-01T09:27:13.982Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T09:22:49.227Z\",\n            \"updatedAt\": \"2025-08-01T09:27:13.982Z\"\n        },\n        {\n            \"_id\": \"688c90806397ff812dfab232\",\n            \"trackingId\": \"TRK-20250801-zav4le\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\",\n                \"phone\": \"01712345670\"\n            },\n            \"type\": \"Fashion & Clothing\",\n            \"weight\": 1.2,\n            \"fee\": 180,\n            \"pickupAddress\": \"Mirpur 10, Dhaka\",\n            \"deliveryAddress\": \"Kotwali, Barishal\",\n            \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Order placed for Eid delivery.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n            \"updatedAt\": \"2025-08-01T10:01:36.064Z\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Get statusLogs",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Get Status log",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQyMzE3LCJleHAiOjE3NTQxMjg3MTd9.xdfWFsJxjYlkfwboAKTJvdz1FQhbtFRC_DNzugM8Q9I",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/status-log/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"status-log",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Length",
+											"value": "353"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:03:16 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"161-0YucVyEHQbY6WjIUwZbuKdLDHWU\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::d79tp-1754042595547-eeb5be159070"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel status logs retrieved successfully.\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": {\n                    \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"name\": \"ISTIAK AHAMED\",\n                    \"email\": \"istiak15-14128@diu.edu.bd\"\n                },\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            }\n        ]\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Cancel",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Cancel",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NWE3ZTg4MjhjY2ZlMTdiZDFkNWYiLCJlbWFpbCI6ImlzdGlhazE1LTE0MTI4QGRpdS5lZHUuYmQiLCJyb2xlIjoiU2VuZGVyIiwiaWF0IjoxNzU0MDQyMzE3LCJleHAiOjE3NTQxMjg3MTd9.xdfWFsJxjYlkfwboAKTJvdz1FQhbtFRC_DNzugM8Q9I",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"currentStatus\": \"Cancelled\",\r\n    \"statusLogs\": [\r\n        {\r\n            \"status\": \"Cancelled\",\r\n            \"note\": \"Parcel has been Cancelled by sender.\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/cancel/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"cancel",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Length",
+											"value": "838"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:04:03 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"346-vTzB0dtcL5xs5mZdhB16Qmwv11c\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::9qkx9-1754042642216-0cbe5ab17eb7"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel cancel successfully\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n        \"currentStatus\": \"Cancelled\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            },\n            {\n                \"status\": \"Cancelled\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:04:02.943Z\",\n                \"location\": \"Sender App\",\n                \"note\": \"Parcel has been Cancelled by sender.\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:04:02.943Z\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Receiver",
+					"item": [
+						{
+							"name": "Incoming",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Incoming",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRjYWJiYWE0OTNiMzEzM2I2NDIiLCJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwicm9sZSI6IlJlY2VpdmVyIiwiaWF0IjoxNzU0MDQyNzY5LCJleHAiOjE3NTQxMjkxNjl9.NT_dpNFDEPkb6kGJi-w6PaHIovt_4_s2hwkpMxa-tmg",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/incoming",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"incoming"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:06:33 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"9b7-MjWvoncdPTabMBMgBOF21ZkGgnI\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::5frdp-1754042792279-0747a04b92a8"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Incoming parcels retrieved successfully\",\n    \"data\": [\n        {\n            \"_id\": \"688b371384a4d7c265a5960b\",\n            \"trackingId\": \"TRK-20250731-une3sd\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\",\n                \"phone\": \"01712345678\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Electronics\",\n            \"weight\": 3.5,\n            \"fee\": 350,\n            \"pickupAddress\": \"123 Gulshan Ave, Dhaka\",\n            \"deliveryAddress\": \"House 45, Block B, Halishahar, Chattogram\",\n            \"deliveryDate\": \"2025-08-10T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:27:47.253Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Sender submitted parcel request.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:27:47.264Z\",\n            \"updatedAt\": \"2025-07-31T09:27:47.264Z\"\n        },\n        {\n            \"_id\": \"688c8769c78fadfb48e4413d\",\n            \"trackingId\": \"TRK-20250801-hkls28\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\",\n                \"phone\": \"01712345678\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Grocery\",\n            \"weight\": 3,\n            \"fee\": 300,\n            \"pickupAddress\": \"Shaheb Bazar, Rajshahi\",\n            \"deliveryAddress\": \"Nikunja, Dhaka\",\n            \"deliveryDate\": \"2025-08-15T00:00:00.000Z\",\n            \"currentStatus\": \"Approved\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T09:22:49.223Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Fresh vegetables and fruits.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-08-01T09:27:13.982Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T09:22:49.227Z\",\n            \"updatedAt\": \"2025-08-01T09:27:13.982Z\"\n        },\n        {\n            \"_id\": \"688c90806397ff812dfab232\",\n            \"trackingId\": \"TRK-20250801-zav4le\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\",\n                \"phone\": \"01712345678\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Fashion & Clothing\",\n            \"weight\": 1.2,\n            \"fee\": 180,\n            \"pickupAddress\": \"Mirpur 10, Dhaka\",\n            \"deliveryAddress\": \"Kotwali, Barishal\",\n            \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Order placed for Eid delivery.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n            \"updatedAt\": \"2025-08-01T10:04:02.943Z\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Reschedule",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Reschedule",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRjYWJiYWE0OTNiMzEzM2I2NDIiLCJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwicm9sZSI6IlJlY2VpdmVyIiwiaWF0IjoxNzU0MDQ0MTA5LCJleHAiOjE3NTQxMzA1MDl9.psMN88n6og_7dO-D8Ycpm2kM51GR-iZ724UnIl2HLeA",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"newDate\": \"2025-08-16\",\r\n    \"statusLogs\": [\r\n        {\r\n            \"status\": \"Rescheduled\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/reschedule/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"reschedule",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:28:55 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"539-+2a1l1cf4Vpla+Nrv7pQUGbNsO8\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::csj5g-1754044134513-fc8c594ac3e2"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel delivery rescheduled\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-16T00:00:00.000Z\",\n        \"currentStatus\": \"In Transit\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            },\n            {\n                \"status\": \"Approved\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:11:15.518Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel already\"\n            },\n            {\n                \"status\": \"Dispatched\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:12:47.138Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"In Transit\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:13:39.845Z\",\n                \"location\": \"Barishal Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"Rescheduled\",\n                \"updateBy\": \"688b04cabbaa493b3133b642\",\n                \"updateAt\": \"2025-08-01T10:28:55.718Z\",\n                \"location\": \"Delivery Address\",\n                \"note\": \"Parcel delivery rescheduled to 2025-08-16\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:28:55.718Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Returned",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Returned",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRjYWJiYWE0OTNiMzEzM2I2NDIiLCJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwicm9sZSI6IlJlY2VpdmVyIiwiaWF0IjoxNzU0MDQ0MTA5LCJleHAiOjE3NTQxMzA1MDl9.psMN88n6og_7dO-D8Ycpm2kM51GR-iZ724UnIl2HLeA",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"currentStatus\": \"Returned\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/return/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"return",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:29:46 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"5d9-2eC0ysA1spem0k6ZlBhJE/wSxbs\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::b5pd7-1754044185193-6a50c318bc92"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel returned successfully\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-16T00:00:00.000Z\",\n        \"currentStatus\": \"Returned\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            },\n            {\n                \"status\": \"Approved\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:11:15.518Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel already\"\n            },\n            {\n                \"status\": \"Dispatched\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:12:47.138Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"In Transit\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:13:39.845Z\",\n                \"location\": \"Barishal Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"Rescheduled\",\n                \"updateBy\": \"688b04cabbaa493b3133b642\",\n                \"updateAt\": \"2025-08-01T10:28:55.718Z\",\n                \"location\": \"Delivery Address\",\n                \"note\": \"Parcel delivery rescheduled to 2025-08-16\"\n            },\n            {\n                \"status\": \"Returned\",\n                \"updateBy\": \"688b04cabbaa493b3133b642\",\n                \"updateAt\": \"2025-08-01T10:29:46.029Z\",\n                \"location\": \"N/A\",\n                \"note\": \"Parcel has been returned by receiver\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:29:46.029Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Confirm Delivery",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Confirm Delivery",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRjYWJiYWE0OTNiMzEzM2I2NDIiLCJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwicm9sZSI6IlJlY2VpdmVyIiwiaWF0IjoxNzU0MDQ0MTA5LCJleHAiOjE3NTQxMzA1MDl9.psMN88n6og_7dO-D8Ycpm2kM51GR-iZ724UnIl2HLeA",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"currentStatus\": \"Delivered\",\r\n    \"statusLogs\": [\r\n        {\r\n            \"status\": \"Delivered\",\r\n            \"note\": \"Parcel has been Delivered by receiver.\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/delivered/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"delivered",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:31:54 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"5ed-WeDFDUv8iTq+K8hEJw5uYc3/sHg\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::447wf-1754044313750-6bfbb5059027"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Delivery confirmed successfully\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-16T00:00:00.000Z\",\n        \"currentStatus\": \"Delivered\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            },\n            {\n                \"status\": \"Approved\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:11:15.518Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel already\"\n            },\n            {\n                \"status\": \"Dispatched\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:12:47.138Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"In Transit\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:13:39.845Z\",\n                \"location\": \"Barishal Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"Rescheduled\",\n                \"updateBy\": \"688b04cabbaa493b3133b642\",\n                \"updateAt\": \"2025-08-01T10:28:55.718Z\",\n                \"location\": \"Delivery Address\",\n                \"note\": \"Parcel delivery rescheduled to 2025-08-16\"\n            },\n            {\n                \"status\": \"Delivered\",\n                \"updateBy\": \"688b04cabbaa493b3133b642\",\n                \"updateAt\": \"2025-08-01T10:31:54.490Z\",\n                \"location\": \"Delivery Address\",\n                \"note\": \"Parcel has been Delivered by receiver.\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:31:54.490Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Histroy Delivery",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "History Delivery",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRmZWJiYWE0OTNiMzEzM2I2NDciLCJlbWFpbCI6ImlzdGlha2FuaWs3OUBnbWFpbC5jb20iLCJyb2xlIjoiUmVjZWl2ZXIiLCJpYXQiOjE3NTQwNDM4NTEsImV4cCI6MTc1NDEzMDI1MX0.N38ZYi_BNEN9_LjRzH-Abq1scRMEfZi8192HV5_EmWw",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/history",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"history"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:24:35 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"605-nwDr5Pgts/krZzQ9IJxvQw/YZ/c\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::nlgbr-1754043874762-1c738327aaba"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel delivery history retrieved successfully\",\n    \"data\": [\n        {\n            \"_id\": \"688b399d84a4d7c265a5961c\",\n            \"trackingId\": \"TRK-20250731-1vfti4\",\n            \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n            \"receiver\": \"688b04febbaa493b3133b647\",\n            \"type\": \"Medical Supplies\",\n            \"weight\": 2,\n            \"fee\": 280,\n            \"pickupAddress\": \"Rajshahi Medical College Gate, Rajshahi\",\n            \"deliveryAddress\": \"Housing Area, Kushtia\",\n            \"deliveryDate\": \"2025-08-13T00:00:00.000Z\",\n            \"currentStatus\": \"Delivered\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:38:37.983Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Requested by sender.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:23.013Z\",\n                    \"location\": \"Rajshahi Office\",\n                    \"note\": \"Approved by admin.\"\n                },\n                {\n                    \"status\": \"Dispatched\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:59.129Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"In Transit\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T17:13:25.370Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"Rescheduled\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:24:46.528Z\",\n                    \"location\": \"Delivery Address\",\n                    \"note\": \"Parcel delivery rescheduled to 2025-08-13\"\n                },\n                {\n                    \"status\": \"Returned\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:43:22.231Z\",\n                    \"location\": \"N/A\",\n                    \"note\": \"Parcel has been returned by receiver\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:38:37.986Z\",\n            \"updatedAt\": \"2025-07-31T17:43:22.232Z\"\n        }\n    ]\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Get All",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "All parcel get",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MjkzNiwiZXhwIjoxNzU0MTI5MzM2fQ.Ff4Fah1kzja_WhsENoXPrzRVJxaKAWs14a3EmANG5pg",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:09:31 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"155c-MLo0BGFQFj/eFSdZrvygdKivpWg\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::8l84z-1754042970135-6bbc05c1a1af"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcels retrieved successfully\",\n    \"meta\": {\n        \"total\": 6\n    },\n    \"data\": [\n        {\n            \"_id\": \"688b371384a4d7c265a5960b\",\n            \"trackingId\": \"TRK-20250731-une3sd\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Electronics\",\n            \"weight\": 3.5,\n            \"fee\": 350,\n            \"pickupAddress\": \"123 Gulshan Ave, Dhaka\",\n            \"deliveryAddress\": \"House 45, Block B, Halishahar, Chattogram\",\n            \"deliveryDate\": \"2025-08-10T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:27:47.253Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Sender submitted parcel request.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:27:47.264Z\",\n            \"updatedAt\": \"2025-07-31T09:27:47.264Z\"\n        },\n        {\n            \"_id\": \"688b384b84a4d7c265a59613\",\n            \"trackingId\": \"TRK-20250731-gbhvuo\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"6888f15286361c0ddd575170\",\n                \"name\": \"Labiba\",\n                \"email\": \"labiba@gmail.com\"\n            },\n            \"type\": \"Books\",\n            \"weight\": 1.5,\n            \"fee\": 200,\n            \"pickupAddress\": \"New Market Area, Kushtia\",\n            \"deliveryAddress\": \"Chowgacha Bazar, Jessore\",\n            \"deliveryDate\": \"2025-08-09T00:00:00.000Z\",\n            \"currentStatus\": \"Approved\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:32:59.147Z\",\n                    \"location\": \"Kushtia\",\n                    \"note\": \"Parcel created by sender.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:35:31.076Z\",\n                    \"location\": \"Kushtia Hub\",\n                    \"note\": \"Parcel has been Approved by admin.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:32:59.152Z\",\n            \"updatedAt\": \"2025-07-31T09:35:31.077Z\"\n        },\n        {\n            \"_id\": \"688b399d84a4d7c265a5961c\",\n            \"trackingId\": \"TRK-20250731-1vfti4\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04febbaa493b3133b647\",\n                \"name\": \"Istiak Ahamed Anik\",\n                \"email\": \"istiakanik79@gmail.com\"\n            },\n            \"type\": \"Medical Supplies\",\n            \"weight\": 2,\n            \"fee\": 280,\n            \"pickupAddress\": \"Rajshahi Medical College Gate, Rajshahi\",\n            \"deliveryAddress\": \"Housing Area, Kushtia\",\n            \"deliveryDate\": \"2025-08-13T00:00:00.000Z\",\n            \"currentStatus\": \"Delivered\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-07-31T09:38:37.983Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Requested by sender.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:23.013Z\",\n                    \"location\": \"Rajshahi Office\",\n                    \"note\": \"Approved by admin.\"\n                },\n                {\n                    \"status\": \"Dispatched\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T09:39:59.129Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"In Transit\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-07-31T17:13:25.370Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                },\n                {\n                    \"status\": \"Rescheduled\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:24:46.528Z\",\n                    \"location\": \"Delivery Address\",\n                    \"note\": \"Parcel delivery rescheduled to 2025-08-13\"\n                },\n                {\n                    \"status\": \"Returned\",\n                    \"updateBy\": \"688b04febbaa493b3133b647\",\n                    \"updateAt\": \"2025-07-31T17:43:22.231Z\",\n                    \"location\": \"N/A\",\n                    \"note\": \"Parcel has been returned by receiver\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-07-31T09:38:37.986Z\",\n            \"updatedAt\": \"2025-07-31T17:43:22.232Z\"\n        },\n        {\n            \"_id\": \"688c3dc94beec36d106b9c67\",\n            \"trackingId\": \"TRK-20250801-m2p0nz\",\n            \"sender\": null,\n            \"receiver\": null,\n            \"type\": \"Grocery\",\n            \"weight\": 3,\n            \"fee\": 300,\n            \"pickupAddress\": \"Shaheb Bazar, Rajshahi\",\n            \"deliveryAddress\": \"Nikunja, Dhaka\",\n            \"deliveryDate\": \"2025-08-15T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"688c3ba94beec36d106b9c43\",\n                    \"updateAt\": \"2025-08-01T04:08:41.096Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Fresh vegetables and fruits.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T04:08:41.097Z\",\n            \"updatedAt\": \"2025-08-01T04:10:55.252Z\"\n        },\n        {\n            \"_id\": \"688c8769c78fadfb48e4413d\",\n            \"trackingId\": \"TRK-20250801-hkls28\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Grocery\",\n            \"weight\": 3,\n            \"fee\": 300,\n            \"pickupAddress\": \"Shaheb Bazar, Rajshahi\",\n            \"deliveryAddress\": \"Nikunja, Dhaka\",\n            \"deliveryDate\": \"2025-08-15T00:00:00.000Z\",\n            \"currentStatus\": \"Approved\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T09:22:49.223Z\",\n                    \"location\": \"Rajshahi\",\n                    \"note\": \"Fresh vegetables and fruits.\"\n                },\n                {\n                    \"status\": \"Approved\",\n                    \"updateBy\": \"6888583e823151521748e711\",\n                    \"updateAt\": \"2025-08-01T09:27:13.982Z\",\n                    \"location\": \"Rajshahi Sorting Center\",\n                    \"note\": \"Parcel left Rajshahi.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T09:22:49.227Z\",\n            \"updatedAt\": \"2025-08-01T09:27:13.982Z\"\n        },\n        {\n            \"_id\": \"688c90806397ff812dfab232\",\n            \"trackingId\": \"TRK-20250801-zav4le\",\n            \"sender\": {\n                \"_id\": \"68885a7e8828ccfe17bd1d5f\",\n                \"name\": \"ISTIAK AHAMED\",\n                \"email\": \"istiak15-14128@diu.edu.bd\"\n            },\n            \"receiver\": {\n                \"_id\": \"688b04cabbaa493b3133b642\",\n                \"name\": \"Anik\",\n                \"email\": \"anik@gmail.com\"\n            },\n            \"type\": \"Fashion & Clothing\",\n            \"weight\": 1.2,\n            \"fee\": 180,\n            \"pickupAddress\": \"Mirpur 10, Dhaka\",\n            \"deliveryAddress\": \"Kotwali, Barishal\",\n            \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n            \"currentStatus\": \"Requested\",\n            \"statusLogs\": [\n                {\n                    \"status\": \"Requested\",\n                    \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                    \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                    \"location\": \"Dhaka\",\n                    \"note\": \"Order placed for Eid delivery.\"\n                }\n            ],\n            \"isBlocked\": false,\n            \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n            \"updatedAt\": \"2025-08-01T10:04:02.943Z\"\n        }\n    ]\n}"
+								}
+							]
+						},
+						{
+							"name": "Status change",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Status change",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MjkzNiwiZXhwIjoxNzU0MTI5MzM2fQ.Ff4Fah1kzja_WhsENoXPrzRVJxaKAWs14a3EmANG5pg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"currentStatus\": \"In Transit\",\r\n    \"statusLogs\": [\r\n        {\r\n            \"status\": \"In Transit\",\r\n            \"location\": \"Barishal Hub\",\r\n            \"note\": \"Parcel dispatched from Dhaka office\"\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/status/688c90806397ff812dfab232",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"status",
+												"688c90806397ff812dfab232"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Encoding",
+											"value": "br"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:13:40 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"48a-wKJsBST/5asJ18zvRlaWfJSovzs\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::ppnp9-1754043219137-f9f15423204d"
+										},
+										{
+											"key": "Transfer-Encoding",
+											"value": "chunked"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel status updated successfully\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"trackingId\": \"TRK-20250801-zav4le\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Fashion & Clothing\",\n        \"weight\": 1.2,\n        \"fee\": 180,\n        \"pickupAddress\": \"Mirpur 10, Dhaka\",\n        \"deliveryAddress\": \"Kotwali, Barishal\",\n        \"deliveryDate\": \"2025-08-14T00:00:00.000Z\",\n        \"currentStatus\": \"In Transit\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            },\n            {\n                \"status\": \"Approved\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:11:15.518Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel already\"\n            },\n            {\n                \"status\": \"Dispatched\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:12:47.138Z\",\n                \"location\": \"Dhaka Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            },\n            {\n                \"status\": \"In Transit\",\n                \"updateBy\": \"6888583e823151521748e711\",\n                \"updateAt\": \"2025-08-01T10:13:39.845Z\",\n                \"location\": \"Barishal Hub\",\n                \"note\": \"Parcel dispatched from Dhaka office\"\n            }\n        ],\n        \"isBlocked\": false,\n        \"createdAt\": \"2025-08-01T10:01:36.064Z\",\n        \"updatedAt\": \"2025-08-01T10:13:39.845Z\"\n    }\n}"
+								}
+							]
+						},
+						{
+							"name": "Block Or Unblock",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Block or unblock",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODg4NTgzZTgyMzE1MTUyMTc0OGU3MTEiLCJlbWFpbCI6ImFmaWZhQGdtYWlsLmNvbSIsInJvbGUiOiJBZG1pbiIsImlhdCI6MTc1NDA0MjkzNiwiZXhwIjoxNzU0MTI5MzM2fQ.Ff4Fah1kzja_WhsENoXPrzRVJxaKAWs14a3EmANG5pg",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"isBlocked\": true\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/block/688c93f5342457e2125d5da7",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"block",
+												"688c93f5342457e2125d5da7"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Length",
+											"value": "669"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:20:59 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"29d-SuLJ93rgfvBMHyyciY12CzVOF9o\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "MISS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::nr7z6-1754043658090-4958c553c764"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel block status updated successfully\",\n    \"data\": {\n        \"_id\": \"688c93f5342457e2125d5da7\",\n        \"trackingId\": \"TRK-20250801-2oi2yj\",\n        \"sender\": \"68885a7e8828ccfe17bd1d5f\",\n        \"receiver\": \"688b04cabbaa493b3133b642\",\n        \"type\": \"Documents\",\n        \"weight\": 0.5,\n        \"fee\": 120,\n        \"pickupAddress\": \"New Market, Rajshahi\",\n        \"deliveryAddress\": \"Banani, Dhaka\",\n        \"deliveryDate\": \"2025-08-10T00:00:00.000Z\",\n        \"currentStatus\": \"Requested\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:16:21.754Z\",\n                \"location\": \"Rajshahi\",\n                \"note\": \"Urgent legal documents.\"\n            }\n        ],\n        \"isBlocked\": true,\n        \"createdAt\": \"2025-08-01T10:16:21.757Z\",\n        \"updatedAt\": \"2025-08-01T10:20:58.849Z\"\n    }\n}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Tracking",
+					"item": [
+						{
+							"name": "Get",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "Tracking",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODhiMDRjYWJiYWE0OTNiMzEzM2I2NDIiLCJlbWFpbCI6ImFuaWtAZ21haWwuY29tIiwicm9sZSI6IlJlY2VpdmVyIiwiaWF0IjoxNzU0MDQyNzY5LCJleHAiOjE3NTQxMjkxNjl9.NT_dpNFDEPkb6kGJi-w6PaHIovt_4_s2hwkpMxa-tmg",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "https://nirapod-parcel-backend.vercel.app/api/v1/parcels/track/TRK-20250801-zav4le",
+											"protocol": "https",
+											"host": [
+												"nirapod-parcel-backend",
+												"vercel",
+												"app"
+											],
+											"path": [
+												"api",
+												"v1",
+												"parcels",
+												"track",
+												"TRK-20250801-zav4le"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": null,
+									"header": [
+										{
+											"key": "Access-Control-Allow-Credentials",
+											"value": "true"
+										},
+										{
+											"key": "Cache-Control",
+											"value": "public, max-age=0, must-revalidate"
+										},
+										{
+											"key": "Content-Length",
+											"value": "282"
+										},
+										{
+											"key": "Content-Type",
+											"value": "application/json; charset=utf-8"
+										},
+										{
+											"key": "Date",
+											"value": "Fri, 01 Aug 2025 10:08:01 GMT"
+										},
+										{
+											"key": "Etag",
+											"value": "W/\"11a-QsnTyv3I7ElrYovcuJNdXeJUKGI\""
+										},
+										{
+											"key": "Server",
+											"value": "Vercel"
+										},
+										{
+											"key": "Strict-Transport-Security",
+											"value": "max-age=63072000; includeSubDomains; preload"
+										},
+										{
+											"key": "Vary",
+											"value": "Origin"
+										},
+										{
+											"key": "X-Powered-By",
+											"value": "Express"
+										},
+										{
+											"key": "X-Vercel-Cache",
+											"value": "BYPASS"
+										},
+										{
+											"key": "X-Vercel-Id",
+											"value": "bom1::iad1::7xjjw-1754042880737-315259ec9488"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"message\": \"Parcel tracking retrieved successfully\",\n    \"data\": {\n        \"_id\": \"688c90806397ff812dfab232\",\n        \"statusLogs\": [\n            {\n                \"status\": \"Requested\",\n                \"updateBy\": \"68885a7e8828ccfe17bd1d5f\",\n                \"updateAt\": \"2025-08-01T10:01:36.062Z\",\n                \"location\": \"Dhaka\",\n                \"note\": \"Order placed for Eid delivery.\"\n            }\n        ]\n    }\n}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

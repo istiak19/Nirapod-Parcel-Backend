@@ -3,6 +3,7 @@
 A secure and modular RESTful API built with **Express.js** and **Mongoose** for managing a full-fledged parcel delivery system. Inspired by leading courier services like Pathao and Sundarban, this backend system supports user registration, parcel creation, delivery tracking, and robust role-based access for **Admins**, **Senders**, and **Receivers**.
 
 > 🚀 Live API: [https://nirapod-parcel-backend.vercel.app/](https://nirapod-parcel-backend.vercel.app/)
+> 📬 API Docs (Postman): [View Documentation](https://documenter.getpostman.com/view/40122875/2sB3BALCQm)
 
 ---
 
@@ -29,8 +30,8 @@ A secure and modular RESTful API built with **Express.js** and **Mongoose** for 
 * 🧑‍💼 **Role-based authorization** for `Admin`, `Sender`, `Receiver`
 * 📦 **Parcel management** with embedded status logs
 * 🛤 **Parcel tracking** via unique tracking IDs
-* ♻️ **Status transitions**: Requested → Approved → Dispatched → In Transit → Delivered
-* 🔁 **Receiver can return or reschedule parcels**
+* ♻️ **Full status transitions** with cancellation, return, and rescheduling
+* 🔁 **Receiver actions**: return and reschedule
 * 🛡️ **Protected routes** with `checkAuth` middleware
 * 💡 **OTP system**, Google OAuth login
 * 📃 **Zod validation** for robust input handling
@@ -103,24 +104,41 @@ FRONTEND_URL=https://your-frontend-domain.com
 
 ## 📬 Parcel Lifecycle & Status Flow
 
-### Parcel Status Transitions
+### 📌 `parcelStatus` Values
+
+```ts
+type parcelStatus =
+  | "Requested"
+  | "Approved"
+  | "Dispatched"
+  | "In Transit"
+  | "Delivered"
+  | "Cancelled"
+  | "Returned"
+  | "Rescheduled";
+```
+
+### Lifecycle Example
 
 ```
 Requested → Approved → Dispatched → In Transit → Delivered
+                                         ↘ Returned
+                                         ↘ Rescheduled
+                        ↘ Cancelled
+
 ```
 
-Each parcel document includes:
+Each parcel includes:
 
 * `trackingId`: Format → `TRK-YYYYMMDD-XXXXXX`
 * `trackingEvents[]`: `{ status, timestamp, location?, updatedBy, note }`
-* `isBlocked`, `isCanceled`, `deliveryDate`, `fee`, `receiverInfo`, etc.
 
 Parcel actions:
 
-* ❌ Can be canceled (if not dispatched)
-* 🔁 Can be returned (by receiver)
-* 📆 Can be rescheduled (by receiver)
-* ✅ Delivery confirmation (by receiver)
+* ❌ Cancel (before dispatch)
+* 🔁 Return (by receiver)
+* 📆 Reschedule (by receiver)
+* ✅ Confirm delivery (by receiver)
 
 ---
 
@@ -185,10 +203,10 @@ Parcel actions:
 
 ## 🧪 Testing
 
-* ✅ Full coverage with Postman collection
-* ✅ Success/failure feedback with HTTP status codes
-* ✅ Input validation using Zod
-* ✅ Protected route testing using JWT
+* ✅ Fully tested with [Postman Collection](https://documenter.getpostman.com/view/40122875/2sB3BALCQm)
+* ✅ HTTP status code & error response consistency
+* ✅ All payloads validated using Zod
+* ✅ JWT-secured route validation
 
 ---
 
@@ -215,5 +233,5 @@ src/
 
 ## 🧑‍💻 Contributors
 
-* **Istiak Ahmed** — Creator and maintainer
+* **Istiak Ahmed** — Creator and Maintainer
   GitHub: [@istiak19](https://github.com/istiak19)
