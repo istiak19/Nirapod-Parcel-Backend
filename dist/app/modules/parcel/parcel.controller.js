@@ -120,11 +120,10 @@ const returnParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
 const deliveryHistoryParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decodedToken = req.user;
     const parcel = yield parcel_service_1.parcelService.deliveryHistoryParcel(decodedToken);
-    const isEmpty = !parcel || (Array.isArray(parcel) && parcel.length === 0);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: isEmpty ? "You have no delivered parcels yet." : "Parcel delivery history retrieved successfully",
+        message: "Parcel delivery history retrieved successfully",
         data: parcel
     });
 }));

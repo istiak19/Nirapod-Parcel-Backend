@@ -29,13 +29,14 @@ const getMeParcel = async (sender: JwtPayload) => {
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-    // if (isExistUser.isBlocked === "Blocked" || isExistUser.isBlocked === "Inactive" || isExistUser.isDelete == true) {
-    //     throw new AppError(httpStatus.FORBIDDEN, "Your account is restricted from accessing parcel data.");
-    // };
-
     const parcel = await Parcel.find({ sender: sender.userId })
         .populate("sender", "name email")
         .populate("receiver", "name email phone");
+
+    if (!parcel.length) {
+        throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
+    };
+
     return parcel;
 };
 
@@ -302,6 +303,10 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
 
     if (!isExistParcel) {
         throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
+    };
+
+    if (!isExistParcel.length) {
+        throw new AppError(httpStatus.NOT_FOUND, "You have no delivered parcels yet.");
     };
 
     return isExistParcel;
