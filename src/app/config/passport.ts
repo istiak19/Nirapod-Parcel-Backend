@@ -20,9 +20,9 @@ passport.use(
                     return done("User does not exist");
                 };
 
-                // if (!isExistUser.isVerified) {
-                //     return done("User is not verified");
-                // };
+                if (isExistUser && !isExistUser.isVerified) {
+                    return done(null, false, { message: "User is not verified" });
+                };
 
                 if (isExistUser.isBlocked === "Blocked" || isExistUser.isBlocked === "Inactive") {
                     return done(`User is ${isExistUser.isBlocked}`);
