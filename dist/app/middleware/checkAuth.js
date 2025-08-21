@@ -19,8 +19,15 @@ const AppError_1 = require("../errors/AppError");
 const env_config_1 = require("../config/env.config");
 const user_model_1 = require("../modules/user/user.model");
 const checkAuth = (...authRoles) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     try {
-        const accessToken = req.headers.authorization;
+        let accessToken;
+        if ((_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.startsWith("Bearer ")) {
+            accessToken = req.headers.authorization.split(" ")[1];
+        }
+        else if (req.cookies.accessToken) {
+            accessToken = req.cookies.accessToken;
+        }
         if (!accessToken) {
             throw new AppError_1.AppError(403, "Unauthorized access: No token provided");
         }

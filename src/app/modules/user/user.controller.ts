@@ -25,7 +25,7 @@ const getMeUser = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "User retrieved successfully",
+        message: "Your profile retrieved successfully",
         data: user
     });
 });
