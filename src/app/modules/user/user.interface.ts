@@ -21,4 +21,4 @@ export interface IUser {
     auths: IAuthProvider[];
     parcelId?: Types.ObjectId[];
     createdAt?: Date
-}
+};
