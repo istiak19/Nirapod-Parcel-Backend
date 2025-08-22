@@ -28,6 +28,7 @@ app.set("trust proxy", 1);
 app.use((0, cors_1.default)({
     origin: [
         "http://localhost:5173",
+        "https://nirapod-parcel.netlify.app"
     ],
     credentials: true
 }));
