@@ -6,6 +6,7 @@ const user_route_1 = require("../modules/user/user.route");
 const auth_route_1 = require("../modules/auth/auth.route");
 const otpCode_route_1 = require("../modules/otpCode/otpCode.route");
 const parcel_route_1 = require("../modules/parcel/parcel.route");
+const contact_route_1 = require("../modules/contact/contact.route");
 exports.router = (0, express_1.Router)();
 const moduleRouter = [
     {
@@ -23,6 +24,10 @@ const moduleRouter = [
     {
         path: "/parcels",
         route: parcel_route_1.parcelRoutes
+    },
+    {
+        path: "/contact",
+        route: contact_route_1.contactRoutes
     },
 ];
 moduleRouter.forEach((route) => {
