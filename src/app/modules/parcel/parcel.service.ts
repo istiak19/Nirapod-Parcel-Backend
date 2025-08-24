@@ -7,11 +7,11 @@ import { AppError } from "../../errors/AppError";
 import { User } from '../user/user.model';
 import { QueryBuilder } from '../../utils/QueryBuilder/QueryBuilder';
 
-const getTrackingParcel = async (user: JwtPayload, id: string) => {
-    const isExistUser = await User.findById(user.userId);
-    if (!isExistUser) {
-        throw new AppError(httpStatus.NOT_FOUND, "User not found");
-    };
+const getTrackingParcel = async (id: string) => {
+    // const isExistUser = await User.findById(user.userId);
+    // if (!isExistUser) {
+    //     throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    // };
 
     const parcel = await Parcel.findOne({ trackingId: id }).select("statusLogs");
 
@@ -134,6 +134,23 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
 };
 
 // Receiver section
+const getMeReceiverParcel = async (receiver: JwtPayload) => {
+    const isExistUser = await User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    };
+
+    const parcel = await Parcel.find({ receiver: receiver.userId })
+        .populate("sender", "name email")
+        .populate("receiver", "name email phone");
+
+    if (!parcel.length) {
+        throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
+    };
+
+    return parcel;
+};
+
 const incomingParcels = async (id: string) => {
     const isExistUser = await User.findById(id);
     if (!isExistUser) {
@@ -299,7 +316,9 @@ const deliveryHistoryParcel = async (receiver: JwtPayload) => {
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-    const isExistParcel = await Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
+    const isExistParcel = await Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId })
+        .populate("sender", "name email phone")
+        .populate("receiver", "name email");
 
     if (!isExistParcel) {
         throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
@@ -416,5 +435,6 @@ export const parcelService = {
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
-    isBlockedParcel
+    isBlockedParcel,
+    getMeReceiverParcel
 };

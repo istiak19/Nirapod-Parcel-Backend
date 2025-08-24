@@ -19,12 +19,11 @@ const parcel_model_1 = require("./parcel.model");
 const AppError_1 = require("../../errors/AppError");
 const user_model_1 = require("../user/user.model");
 const QueryBuilder_1 = require("../../utils/QueryBuilder/QueryBuilder");
-const getTrackingParcel = (user, id) => __awaiter(void 0, void 0, void 0, function* () {
-    const isExistUser = yield user_model_1.User.findById(user.userId);
-    if (!isExistUser) {
-        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
-    }
-    ;
+const getTrackingParcel = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    // const isExistUser = await User.findById(user.userId);
+    // if (!isExistUser) {
+    //     throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    // };
     const parcel = yield parcel_model_1.Parcel.findOne({ trackingId: id }).select("statusLogs");
     if (!parcel) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found with the provided tracking ID");
@@ -125,6 +124,21 @@ const cancelParcel = (payload, sender, id) => __awaiter(void 0, void 0, void 0, 
     return parcel;
 });
 // Receiver section
+const getMeReceiverParcel = (receiver) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistUser = yield user_model_1.User.findById(receiver.userId);
+    if (!isExistUser) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
+    }
+    ;
+    const parcel = yield parcel_model_1.Parcel.find({ receiver: receiver.userId })
+        .populate("sender", "name email")
+        .populate("receiver", "name email phone");
+    if (!parcel.length) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
+    }
+    ;
+    return parcel;
+});
 const incomingParcels = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(id);
     if (!isExistUser) {
@@ -277,7 +291,9 @@ const deliveryHistoryParcel = (receiver) => __awaiter(void 0, void 0, void 0, fu
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    const isExistParcel = yield parcel_model_1.Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId });
+    const isExistParcel = yield parcel_model_1.Parcel.find({ currentStatus: "Delivered", receiver: receiver.userId })
+        .populate("sender", "name email phone")
+        .populate("receiver", "name email");
     if (!isExistParcel) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
     }
@@ -384,5 +400,6 @@ exports.parcelService = {
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
-    isBlockedParcel
+    isBlockedParcel,
+    getMeReceiverParcel
 };

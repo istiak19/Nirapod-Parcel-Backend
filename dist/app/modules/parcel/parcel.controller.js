@@ -18,9 +18,8 @@ const catchAsync_1 = require("../../utils/catchAsync");
 const sendResponse_1 = __importDefault(require("../../utils/sendResponse"));
 const parcel_service_1 = require("./parcel.service");
 const getTrackingParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const decodedToken = req.user;
     const trackingId = req.params.trackingId;
-    const parcel = yield parcel_service_1.parcelService.getTrackingParcel(decodedToken, trackingId);
+    const parcel = yield parcel_service_1.parcelService.getTrackingParcel(trackingId);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
@@ -68,6 +67,16 @@ const cancelParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Parcel cancel successfully",
+        data: parcel
+    });
+}));
+const getMeReceiverParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const decodedToken = req.user;
+    const parcel = yield parcel_service_1.parcelService.getMeReceiverParcel(decodedToken);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Parcel retrieved successfully",
         data: parcel
     });
 }));
@@ -179,5 +188,6 @@ exports.parcelController = {
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
-    isBlockedParcel
+    isBlockedParcel,
+    getMeReceiverParcel
 };
