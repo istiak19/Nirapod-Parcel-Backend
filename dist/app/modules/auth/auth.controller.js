@@ -71,15 +71,29 @@ const refreshTokenLogin = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(v
     });
 }));
 const logout = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.clearCookie("accessToken", {
+    // res.clearCookie("accessToken", {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: "lax"
+    // });
+    // res.clearCookie("refreshToken", {
+    //     httpOnly: true,
+    //     secure: false,
+    //     sameSite: "lax"
+    // });
+    res.cookie("accessToken", "", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: true,
+        sameSite: "none",
+        maxAge: 0,
+        path: "/"
     });
-    res.clearCookie("refreshToken", {
+    res.cookie("refreshToken", "", {
         httpOnly: true,
-        secure: false,
-        sameSite: "lax"
+        secure: true,
+        sameSite: "none",
+        maxAge: 0,
+        path: "/"
     });
     (0, sendResponse_1.default)(res, {
         success: true,

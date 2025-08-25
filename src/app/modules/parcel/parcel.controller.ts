@@ -6,9 +6,8 @@ import { parcelService } from './parcel.service';
 import { JwtPayload } from 'jsonwebtoken';
 
 const getTrackingParcel = catchAsync(async (req: Request, res: Response) => {
-    const decodedToken = req.user as JwtPayload;
     const trackingId = req.params.trackingId;
-    const parcel = await parcelService.getTrackingParcel(decodedToken, trackingId);
+    const parcel = await parcelService.getTrackingParcel(trackingId);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
@@ -19,12 +18,14 @@ const getTrackingParcel = catchAsync(async (req: Request, res: Response) => {
 
 const getMeParcel = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
-    const parcel = await parcelService.getMeParcel(decodedToken);
+    const query = req.query;
+    const { parcel, metaData } = await parcelService.getMeParcel(decodedToken, query as Record<string, string>);
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
         message: "Parcel retrieved successfully",
-        data: parcel
+        data: { parcel },
+        meta: metaData
     });
 });
 
@@ -61,6 +62,19 @@ const cancelParcel = catchAsync(async (req: Request, res: Response) => {
         statusCode: httpStatus.OK,
         message: "Parcel cancel successfully",
         data: parcel
+    });
+});
+
+const getMeReceiverParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const query = req.query;
+    const { parcel, metaData } = await parcelService.getMeReceiverParcel(decodedToken, query as Record<string, string>);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Parcel retrieved successfully",
+        data: { parcel },
+        meta: metaData
     });
 });
 
@@ -136,7 +150,10 @@ const getAllParcel = catchAsync(async (req: Request, res: Response) => {
         message: "Parcels retrieved successfully",
         data: parcel.parcel,
         meta: {
-            total: parcel.totalParcel
+            total: parcel.metaData.total,
+            page: parcel.metaData.page,
+            limit: parcel.metaData.limit,
+            totalPage: parcel.metaData.totalPage
         }
     });
 });
@@ -180,5 +197,6 @@ export const parcelController = {
     deliveryHistoryParcel,
     getAllParcel,
     statusParcel,
-    isBlockedParcel
+    isBlockedParcel,
+    getMeReceiverParcel
 };
