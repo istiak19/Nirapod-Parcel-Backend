@@ -51,13 +51,22 @@ class QueryBuilder {
         this.modelQuery = this.modelQuery.skip(skip).limit(limit);
         return this;
     }
-    meta() {
+    meta(role, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const page = Number(this.query.page) || 1;
             const limit = Number(this.query.limit) || 10;
-            const totalDocuments = yield this.modelQuery.model.countDocuments(this.filters);
-            const totalPage = Math.ceil(totalDocuments / limit);
-            return { page, limit, total: totalDocuments, totalPage };
+            let total = 0;
+            if (role === "Receiver" && userId) {
+                total = yield this.modelQuery.model.countDocuments({ receiver: userId });
+            }
+            else if (role === "Sender" && userId) {
+                total = yield this.modelQuery.model.countDocuments({ sender: userId });
+            }
+            else if (role === "Admin") {
+                total = yield this.modelQuery.model.countDocuments({});
+            }
+            const totalPage = Math.ceil(total / limit);
+            return { page, limit, totalPage, total };
         });
     }
 }

@@ -44,7 +44,7 @@ const getMeParcel = async (sender: JwtPayload, query: Record<string, string>) =>
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
     }
 
-    const metaData = await queryBuilder.meta();
+    const metaData = await queryBuilder.meta("Sender", sender.userId);
     return {
         parcel,
         metaData
@@ -166,7 +166,7 @@ const getMeReceiverParcel = async (receiver: JwtPayload, query: Record<string, s
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
     }
 
-    const metaData = await queryBuilder.meta();
+    const metaData = await queryBuilder.meta("Receiver", receiver.userId);
     return {
         parcel,
         metaData
@@ -370,7 +370,7 @@ const getAllParcel = async (token: JwtPayload, query: Record<string, string>) =>
         .modelQuery
         .populate("sender", "name email")
         .populate("receiver", "name email");
-    const metaData = await queryBuilder.meta()
+    const metaData = await queryBuilder.meta("Admin", token.userId)
     return {
         parcel,
         metaData

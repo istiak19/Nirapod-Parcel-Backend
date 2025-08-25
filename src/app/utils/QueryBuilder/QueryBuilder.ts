@@ -53,13 +53,22 @@ export class QueryBuilder<T> {
         return this;
     }
 
-    async meta() {
+    async meta(role: "Receiver" | "Sender" | "Admin", userId?: string) {
         const page = Number(this.query.page) || 1;
         const limit = Number(this.query.limit) || 10;
 
-        const totalDocuments = await this.modelQuery.model.countDocuments(this.filters);
-        const totalPage = Math.ceil(totalDocuments / limit);
+        let total = 0;
 
-        return { page, limit, total: totalDocuments, totalPage };
+        if (role === "Receiver" && userId) {
+            total = await this.modelQuery.model.countDocuments({ receiver: userId });
+        } else if (role === "Sender" && userId) {
+            total = await this.modelQuery.model.countDocuments({ sender: userId });
+        } else if (role === "Admin") {
+            total = await this.modelQuery.model.countDocuments({});
+        }
+
+        const totalPage = Math.ceil(total / limit);
+
+        return { page, limit, totalPage, total };
     }
 };

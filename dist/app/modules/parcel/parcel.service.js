@@ -50,7 +50,7 @@ const getMeParcel = (sender, query) => __awaiter(void 0, void 0, void 0, functio
     if (!parcel || parcel.length === 0) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
     }
-    const metaData = yield queryBuilder.meta();
+    const metaData = yield queryBuilder.meta("Sender", sender.userId);
     return {
         parcel,
         metaData
@@ -150,7 +150,7 @@ const getMeReceiverParcel = (receiver, query) => __awaiter(void 0, void 0, void 
     if (!parcel || parcel.length === 0) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
     }
-    const metaData = yield queryBuilder.meta();
+    const metaData = yield queryBuilder.meta("Receiver", receiver.userId);
     return {
         parcel,
         metaData
@@ -337,7 +337,7 @@ const getAllParcel = (token, query) => __awaiter(void 0, void 0, void 0, functio
         .modelQuery
         .populate("sender", "name email")
         .populate("receiver", "name email");
-    const metaData = yield queryBuilder.meta();
+    const metaData = yield queryBuilder.meta("Admin", token.userId);
     return {
         parcel,
         metaData
