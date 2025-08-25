@@ -23,21 +23,32 @@ const getTrackingParcel = async (id: string) => {
 };
 
 // Sender Section
-const getMeParcel = async (sender: JwtPayload) => {
+const getMeParcel = async (sender: JwtPayload, query: Record<string, string>) => {
     const isExistUser = await User.findById(sender.userId);
     if (!isExistUser) {
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-    const parcel = await Parcel.find({ sender: sender.userId })
+    const searchFields = ["currentStatus"];
+    const queryBuilder = new QueryBuilder(Parcel.find({ sender: sender.userId }), query);
+
+    const parcel = await queryBuilder
+        .search(searchFields)
+        .filter()
+        .pagination()
+        .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email phone");
+        .populate("receiver", "name email");
 
-    if (!parcel.length) {
+    if (!parcel || parcel.length === 0) {
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
-    };
+    }
 
-    return parcel;
+    const metaData = await queryBuilder.meta();
+    return {
+        parcel,
+        metaData
+    };
 };
 
 const statusLogParcel = async (id: string) => {
@@ -134,21 +145,32 @@ const cancelParcel = async (payload: Partial<IParcel>, sender: JwtPayload, id: s
 };
 
 // Receiver section
-const getMeReceiverParcel = async (receiver: JwtPayload) => {
+const getMeReceiverParcel = async (receiver: JwtPayload, query: Record<string, string>) => {
     const isExistUser = await User.findById(receiver.userId);
     if (!isExistUser) {
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
-    };
+    }
 
-    const parcel = await Parcel.find({ receiver: receiver.userId })
+    const searchFields = ["currentStatus"];
+    const queryBuilder = new QueryBuilder(Parcel.find({ receiver: receiver.userId }), query);
+
+    const parcel = await queryBuilder
+        .search(searchFields)
+        .filter()
+        .pagination()
+        .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email phone");
+        .populate("receiver", "name email");
 
-    if (!parcel.length) {
+    if (!parcel || parcel.length === 0) {
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
-    };
+    }
 
-    return parcel;
+    const metaData = await queryBuilder.meta();
+    return {
+        parcel,
+        metaData
+    };
 };
 
 const incomingParcels = async (id: string) => {
@@ -343,13 +365,15 @@ const getAllParcel = async (token: JwtPayload, query: Record<string, string>) =>
 
     const parcel = await queryBuilder
         .search(searchFields)
+        .filter()
+        .pagination()
         .modelQuery
         .populate("sender", "name email")
         .populate("receiver", "name email");
-    const totalParcel = await Parcel.countDocuments();
+    const metaData = await queryBuilder.meta()
     return {
         parcel,
-        totalParcel
+        metaData
     };
 };
 

@@ -29,12 +29,14 @@ const getTrackingParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(v
 }));
 const getMeParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decodedToken = req.user;
-    const parcel = yield parcel_service_1.parcelService.getMeParcel(decodedToken);
+    const query = req.query;
+    const { parcel, metaData } = yield parcel_service_1.parcelService.getMeParcel(decodedToken, query);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Parcel retrieved successfully",
-        data: parcel
+        data: { parcel },
+        meta: metaData
     });
 }));
 const statusLogParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -72,12 +74,14 @@ const cancelParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
 }));
 const getMeReceiverParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const decodedToken = req.user;
-    const parcel = yield parcel_service_1.parcelService.getMeReceiverParcel(decodedToken);
+    const query = req.query;
+    const { parcel, metaData } = yield parcel_service_1.parcelService.getMeReceiverParcel(decodedToken, query);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
         message: "Parcel retrieved successfully",
-        data: parcel
+        data: { parcel },
+        meta: metaData
     });
 }));
 const incomingParcels = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -147,7 +151,10 @@ const getAllParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
         message: "Parcels retrieved successfully",
         data: parcel.parcel,
         meta: {
-            total: parcel.totalParcel
+            total: parcel.metaData.total,
+            page: parcel.metaData.page,
+            limit: parcel.metaData.limit,
+            totalPage: parcel.metaData.totalPage
         }
     });
 }));

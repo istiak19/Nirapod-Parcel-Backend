@@ -32,20 +32,29 @@ const getTrackingParcel = (id) => __awaiter(void 0, void 0, void 0, function* ()
     return parcel;
 });
 // Sender Section
-const getMeParcel = (sender) => __awaiter(void 0, void 0, void 0, function* () {
+const getMeParcel = (sender, query) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(sender.userId);
     if (!isExistUser) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    const parcel = yield parcel_model_1.Parcel.find({ sender: sender.userId })
+    const searchFields = ["currentStatus"];
+    const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find({ sender: sender.userId }), query);
+    const parcel = yield queryBuilder
+        .search(searchFields)
+        .filter()
+        .pagination()
+        .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email phone");
-    if (!parcel.length) {
+        .populate("receiver", "name email");
+    if (!parcel || parcel.length === 0) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
     }
-    ;
-    return parcel;
+    const metaData = yield queryBuilder.meta();
+    return {
+        parcel,
+        metaData
+    };
 });
 const statusLogParcel = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistParcel = yield parcel_model_1.Parcel.findById(id);
@@ -124,20 +133,28 @@ const cancelParcel = (payload, sender, id) => __awaiter(void 0, void 0, void 0, 
     return parcel;
 });
 // Receiver section
-const getMeReceiverParcel = (receiver) => __awaiter(void 0, void 0, void 0, function* () {
+const getMeReceiverParcel = (receiver, query) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(receiver.userId);
     if (!isExistUser) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
-    ;
-    const parcel = yield parcel_model_1.Parcel.find({ receiver: receiver.userId })
+    const searchFields = ["currentStatus"];
+    const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find({ receiver: receiver.userId }), query);
+    const parcel = yield queryBuilder
+        .search(searchFields)
+        .filter()
+        .pagination()
+        .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email phone");
-    if (!parcel.length) {
+        .populate("receiver", "name email");
+    if (!parcel || parcel.length === 0) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
     }
-    ;
-    return parcel;
+    const metaData = yield queryBuilder.meta();
+    return {
+        parcel,
+        metaData
+    };
 });
 const incomingParcels = (id) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(id);
@@ -315,13 +332,15 @@ const getAllParcel = (token, query) => __awaiter(void 0, void 0, void 0, functio
     const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find(), query);
     const parcel = yield queryBuilder
         .search(searchFields)
+        .filter()
+        .pagination()
         .modelQuery
         .populate("sender", "name email")
         .populate("receiver", "name email");
-    const totalParcel = yield parcel_model_1.Parcel.countDocuments();
+    const metaData = yield queryBuilder.meta();
     return {
         parcel,
-        totalParcel
+        metaData
     };
 });
 const statusParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0, function* () {
