@@ -38,7 +38,7 @@ const getMeParcel = (sender, query) => __awaiter(void 0, void 0, void 0, functio
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find({ sender: sender.userId }), query);
     const parcel = yield queryBuilder
         .search(searchFields)
@@ -138,7 +138,7 @@ const getMeReceiverParcel = (receiver, query) => __awaiter(void 0, void 0, void 
     if (!isExistUser) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find({ receiver: receiver.userId }), query);
     const parcel = yield queryBuilder
         .search(searchFields)
@@ -328,7 +328,7 @@ const getAllParcel = (token, query) => __awaiter(void 0, void 0, void 0, functio
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
     }
     ;
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder_1.QueryBuilder(parcel_model_1.Parcel.find(), query);
     const parcel = yield queryBuilder
         .search(searchFields)

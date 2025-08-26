@@ -27,7 +27,6 @@ export class QueryBuilder<T> {
     }
 
     filter(): this {
-        // Exclude special query params
         const excludeFields = ["search", "page", "limit"];
         for (const key of Object.keys(this.query)) {
             if (!excludeFields.includes(key)) {
@@ -35,7 +34,6 @@ export class QueryBuilder<T> {
             }
         }
 
-        // Apply filters immediately
         this.modelQuery = this.modelQuery.find(this.filters);
 
         return this;
