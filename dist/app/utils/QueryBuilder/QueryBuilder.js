@@ -30,14 +30,12 @@ class QueryBuilder {
         return this;
     }
     filter() {
-        // Exclude special query params
         const excludeFields = ["search", "page", "limit"];
         for (const key of Object.keys(this.query)) {
             if (!excludeFields.includes(key)) {
                 this.filters[key] = this.query[key];
             }
         }
-        // Apply filters immediately
         this.modelQuery = this.modelQuery.find(this.filters);
         return this;
     }

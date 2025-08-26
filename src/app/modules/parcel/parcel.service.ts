@@ -29,7 +29,7 @@ const getMeParcel = async (sender: JwtPayload, query: Record<string, string>) =>
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder(Parcel.find({ sender: sender.userId }), query);
 
     const parcel = await queryBuilder
@@ -151,7 +151,7 @@ const getMeReceiverParcel = async (receiver: JwtPayload, query: Record<string, s
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     }
 
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder(Parcel.find({ receiver: receiver.userId }), query);
 
     const parcel = await queryBuilder
@@ -360,7 +360,7 @@ const getAllParcel = async (token: JwtPayload, query: Record<string, string>) =>
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     };
 
-    const searchFields = ["currentStatus"];
+    const searchFields = ["currentStatus", "pickupAddress", "deliveryAddress", "type"];
     const queryBuilder = new QueryBuilder(Parcel.find(), query);
 
     const parcel = await queryBuilder
