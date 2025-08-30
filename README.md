@@ -2,7 +2,7 @@
 
 A secure and modular RESTful API built with **Express.js** and **Mongoose** for managing a full-fledged parcel delivery system. Inspired by leading courier services like Pathao and Sundarban, this backend system supports user registration, parcel creation, delivery tracking, and robust role-based access for **Admins**, **Senders**, and **Receivers**.
 
-> 🚀 Live API: [https://nirapod-parcel-backend.vercel.app/](https://nirapod-parcel-backend.vercel.app/)
+> 🚀 Live API: [https://nirapod-parcel.vercel.app](https://nirapod-parcel.vercel.app/)
 > 📬 API Docs (Postman): [View Documentation](https://documenter.getpostman.com/view/40122875/2sB3BALCQm)
 
 ---
