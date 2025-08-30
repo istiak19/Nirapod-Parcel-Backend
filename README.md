@@ -1,6 +1,6 @@
 # 📦 Nirapod Parcel
 
-A secure and modular RESTful API built with **Express.js** and **Mongoose** for managing a full-fledged parcel delivery system. Inspired by leading courier services like Pathao and Sundarban, this backend system supports user registration, parcel creation, delivery tracking, and robust role-based access for **Admins**, **Senders**, and **Receivers**.
+A secure and modular RESTful API built with **Express.js** and **Mongoose** for managing a full-fledged parcel delivery system. Inspired by leading courier services like Pathao, DHL and Sundarban, this backend system supports user registration, parcel creation, delivery tracking, and robust role-based access for **Admins**, **Senders**, and **Receivers**.
 
 > 🚀 Live API: [https://nirapod-parcel.vercel.app](https://nirapod-parcel.vercel.app/)
 > 📬 API Docs (Postman): [View Documentation](https://documenter.getpostman.com/view/40122875/2sB3BALCQm)
@@ -17,6 +17,7 @@ A secure and modular RESTful API built with **Express.js** and **Mongoose** for 
 * [🔑 Authentication Flow](#-authentication-flow)
 * [📬 Parcel Lifecycle & Status Flow](#-parcel-lifecycle--status-flow)
 * [📄 API Endpoints Summary](#-api-endpoints-summary)
+* [🖼 File Uploads & Media Handling](#-file-uploads--media-handling)
 * [🧪 Testing](#-testing)
 * [🗂 Project Structure](#-project-structure)
 * [🧑‍💻 Contributors](#-contributors)
@@ -35,6 +36,7 @@ A secure and modular RESTful API built with **Express.js** and **Mongoose** for 
 * 🛡️ **Protected routes** with `checkAuth` middleware
 * 💡 **OTP system**, Google OAuth login
 * 📃 **Zod validation** for robust input handling
+* 🖼 **Cloudinary + Multer** for image/file uploads (e.g., parcel images, documents)
 * 🧱 **Scalable modular architecture**
 
 ---
@@ -65,21 +67,31 @@ Create a `.env` file with the following:
 ```env
 PORT=5000
 MONGODB_URI=your_mongo_connection_string
+
+# JWT
 JWT_SECRET=your_jwt_secret
 JWT_REFRESH_SECRET=your_jwt_refresh_secret
+
+# Frontend URL
 FRONTEND_URL=https://your-frontend-domain.com
+
+# Cloudinary
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 ```
 
 ---
 
 ## 📦 API Modules
 
-| Module    | Description                             |
-| --------- | --------------------------------------- |
-| `auth`    | Login, Google OAuth, password mgmt      |
-| `user`    | Registration, profile mgmt, role access |
-| `otpCode` | Send & verify OTP                       |
-| `parcel`  | Full parcel lifecycle mgmt              |
+| Module    | Description                                |
+| --------- | ------------------------------------------ |
+| `auth`    | Login, Google OAuth, password mgmt         |
+| `user`    | Registration, profile mgmt, role access    |
+| `otpCode` | Send & verify OTP                          |
+| `parcel`  | Full parcel lifecycle mgmt                 |
+| `upload`  | File/image uploads via Multer + Cloudinary |
 
 ---
 
@@ -125,7 +137,6 @@ Requested → Approved → Dispatched → In Transit → Delivered
                                          ↘ Returned
                                          ↘ Rescheduled
                         ↘ Cancelled
-
 ```
 
 Each parcel includes:
@@ -144,60 +155,54 @@ Parcel actions:
 
 ## 📄 API Endpoints Summary
 
-### 🔐 Auth (`/api/v1/auth`)
-
-| Method | Endpoint           | Description                 |
-| ------ | ------------------ | --------------------------- |
-| POST   | `/login`           | Login with credentials      |
-| POST   | `/logout`          | Logout and clear session    |
-| POST   | `/refresh-token`   | Refresh access token        |
-| POST   | `/change-password` | Change password (protected) |
-| POST   | `/forget-password` | Request reset via email/OTP |
-| POST   | `/reset-password`  | Submit OTP + new password   |
-| POST   | `/set-password`    | Set a new password          |
-| GET    | `/google`          | Initiate Google login       |
-| GET    | `/google/callback` | Google OAuth callback       |
+*(same as before — auth, user, parcel, otp routes)*
 
 ---
 
-### 👤 Users (`/api/v1/user`)
+## 🖼 File Uploads & Media Handling
 
-| Method | Endpoint    | Access         | Description     |
-| ------ | ----------- | -------------- | --------------- |
-| POST   | `/register` | Public         | Create user     |
-| GET    | `/get-me`   | All Auth Roles | Get own profile |
-| GET    | `/all-user` | Admin          | List all users  |
-| GET    | `/:id`      | Admin          | Get user by ID  |
-| PATCH  | `/:id`      | Self/Admin     | Update user     |
+This project supports **file/image uploads** using **Multer** (for request parsing) and **Cloudinary** (for storage & CDN delivery).
 
----
+### 🔧 Setup
 
-### 📦 Parcels (`/api/v1/parcels`)
+1. Add Cloudinary credentials to `.env`
+2. Use the upload route/module (example):
 
-| Method | Endpoint             | Role     | Description                   |
-| ------ | -------------------- | -------- | ----------------------------- |
-| GET    | `/`                  | Admin    | Get all parcels               |
-| GET    | `/me`                | Sender   | Get all sender’s parcels      |
-| POST   | `/`                  | Sender   | Create a new parcel           |
-| PATCH  | `/cancel/:id`        | Sender   | Cancel a parcel               |
-| GET    | `/incoming`          | Receiver | View incoming parcels         |
-| GET    | `/history`           | Receiver | View delivery history         |
-| PATCH  | `/delivered/:id`     | Receiver | Confirm parcel delivery       |
-| PATCH  | `/return/:id`        | Receiver | Mark parcel as returned       |
-| PATCH  | `/reschedule/:id`    | Receiver | Reschedule delivery           |
-| GET    | `/track/:trackingId` | All      | Track parcel via tracking ID  |
-| GET    | `/status-log/:id`    | Sender   | View status logs for a parcel |
-| PATCH  | `/status/:id`        | Admin    | Update parcel status          |
-| PATCH  | `/block/:id`         | Admin    | Block or unblock a parcel     |
+```ts
+import { v2 as cloudinary } from "cloudinary";
+import multer from "multer";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
----
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-### 🔁 OTP (`/api/v1/otp`)
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: {
+    folder: "nirapod-parcel",
+    allowed_formats: ["jpg", "png", "pdf"],
+  },
+});
 
-| Method | Endpoint  | Description          |
-| ------ | --------- | -------------------- |
-| POST   | `/send`   | Send OTP to user     |
-| POST   | `/verify` | Verify submitted OTP |
+const upload = multer({ storage });
+```
+
+3. Example endpoint:
+
+```ts
+router.post("/upload", upload.single("file"), (req, res) => {
+  res.json({ url: req.file.path });
+});
+```
+
+### 📂 Use Cases
+
+* Sender uploads parcel image/documents
+* Admin verification documents
+* User profile pictures
 
 ---
 
@@ -207,6 +212,7 @@ Parcel actions:
 * ✅ HTTP status code & error response consistency
 * ✅ All payloads validated using Zod
 * ✅ JWT-secured route validation
+* ✅ File upload tests with Cloudinary sandbox
 
 ---
 
@@ -215,10 +221,11 @@ Parcel actions:
 ```bash
 src/
 ├── modules/
-│   ├── auth/        # Login, Google, Password mgmt
+│   ├── auth/        # Login, Google, Password.js
 │   ├── user/        # User registration & profile
 │   ├── parcel/      # Parcel management + tracking logic
 │   ├── otpCode/     # OTP verification
+│   ├── upload/      # File upload with Multer + Cloudinary
 ├── middlewares/
 │   ├── checkAuth.ts
 │   ├── validateRequest.ts
