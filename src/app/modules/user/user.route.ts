@@ -1,3 +1,4 @@
+import { multerUpload } from './../../config/multer.config';
 import { Router } from "express";
 import { userController } from "./user.controller";
 import { checkAuth } from "../../middleware/checkAuth";
@@ -10,6 +11,6 @@ router.get("/all-user", checkAuth("Admin"), userController.allGetUser);
 router.get("/get-me", checkAuth("Admin", "Sender", "Receiver"), userController.getMeUser);
 router.post("/register", validateRequest(createUserZodSchema), userController.createUser);
 router.get("/:id", checkAuth("Admin", "Sender", "Receiver"), userController.getSingleUser);
-router.patch("/:id", checkAuth("Admin", "Sender", "Receiver"), validateRequest(updatedUserZodSchema), userController.userUpdate);
+router.patch("/:id", checkAuth("Admin", "Sender", "Receiver"), multerUpload.single("file"), validateRequest(updatedUserZodSchema), userController.userUpdate);
 
 export const userRoutes = router;

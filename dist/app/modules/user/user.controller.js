@@ -60,9 +60,11 @@ const createUser = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, 
     });
 }));
 const userUpdate = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const decodedToken = req.user;
     const id = req.params.id;
-    const user = yield user_service_1.userService.userUpdate(id, req.body, decodedToken);
+    const payload = Object.assign(Object.assign({}, req.body), { picture: (_a = req.file) === null || _a === void 0 ? void 0 : _a.path });
+    const user = yield user_service_1.userService.userUpdate(id, payload, decodedToken);
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
