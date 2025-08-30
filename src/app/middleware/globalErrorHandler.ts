@@ -8,15 +8,16 @@ import { handleDuplicateError } from "../helpers/handleDuplicateError";
 import { handleCastError } from "../helpers/handleCastError";
 import { handleMongooseValidationError } from "../helpers/handleMongooseValidationError";
 import { handleZodError } from "../helpers/handleZodError";
+import { deleteImageFromCLoudinary } from "../config/cloudinary.config";
 
 const globalErrorHandler = async (err: any, req: Request, res: Response, next: NextFunction) => {
     let statusCode = err.statusCode || 500;
     let message = err.message || "Something went wrong";
 
     // console.log({ file: req.files });
-    // if (req.file) {
-    //     await deleteImageFromCLoudinary(req.file.path)
-    // };
+    if (req.file) {
+        await deleteImageFromCLoudinary(req.file.path)
+    };
 
     // if (req.files && Array.isArray(req.files) && req.files.length) {
     //     const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path)

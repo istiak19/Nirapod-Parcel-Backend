@@ -18,13 +18,15 @@ const handleDuplicateError_1 = require("../helpers/handleDuplicateError");
 const handleCastError_1 = require("../helpers/handleCastError");
 const handleMongooseValidationError_1 = require("../helpers/handleMongooseValidationError");
 const handleZodError_1 = require("../helpers/handleZodError");
+const cloudinary_config_1 = require("../config/cloudinary.config");
 const globalErrorHandler = (err, req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     let statusCode = err.statusCode || 500;
     let message = err.message || "Something went wrong";
     // console.log({ file: req.files });
-    // if (req.file) {
-    //     await deleteImageFromCLoudinary(req.file.path)
-    // };
+    if (req.file) {
+        yield (0, cloudinary_config_1.deleteImageFromCLoudinary)(req.file.path);
+    }
+    ;
     // if (req.files && Array.isArray(req.files) && req.files.length) {
     //     const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path)
     //     await Promise.all(imageUrls.map(url => deleteImageFromCLoudinary(url)));

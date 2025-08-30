@@ -4,6 +4,7 @@ import { AppError } from "../../errors/AppError";
 import { IAuthProvider, IUser } from "./user.interface";
 import { User } from "./user.model";
 import { JwtPayload } from "jsonwebtoken";
+import { deleteImageFromCLoudinary } from "../../config/cloudinary.config";
 
 const allGetUser = async (token: JwtPayload) => {
     const isExistUser = await User.findById(token.userId);
@@ -85,6 +86,10 @@ const userUpdate = async (userId: string, payload: Partial<IUser>, decodedToken:
         new: true,
         runValidators: true
     }).select("-password");
+
+    if (payload.picture && isExistUser.picture) {
+        await deleteImageFromCLoudinary(isExistUser.picture);
+    };
 
     return userUpdated;
 };

@@ -28,6 +28,7 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = require("../../errors/AppError");
 const user_model_1 = require("./user.model");
+const cloudinary_config_1 = require("../../config/cloudinary.config");
 const allGetUser = (token) => __awaiter(void 0, void 0, void 0, function* () {
     const isExistUser = yield user_model_1.User.findById(token.userId);
     if (!isExistUser) {
@@ -98,6 +99,10 @@ const userUpdate = (userId, payload, decodedToken) => __awaiter(void 0, void 0, 
         new: true,
         runValidators: true
     }).select("-password");
+    if (payload.picture && isExistUser.picture) {
+        yield (0, cloudinary_config_1.deleteImageFromCLoudinary)(isExistUser.picture);
+    }
+    ;
     return userUpdated;
 });
 exports.userService = {
