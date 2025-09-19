@@ -3,7 +3,7 @@ import { z } from "zod";
 export const createUserZodSchema = z.object({
     name: z.string().min(1, { message: "Name is required" }),
     email: z.string().email({ message: "Invalid email address" }),
-    role: z.enum(["Admin", "Receiver", "Sender"]),
+    role: z.enum(["Admin", "Receiver", "Sender", "Rider"]),
     password: z
         .string()
         .min(6, { message: "Password must be at least 6 characters long" })
@@ -29,6 +29,7 @@ export const updatedUserZodSchema = z.object({
     }).optional(),
     role: z.enum(["Admin", "Receiver", "Sender"]).optional(),
     isBlocked: z.enum(["Active", "Inactive", "Blocked"]).optional(),
+    isStatus: z.enum(["Active", "Inactive", "Blocked"]).optional(),
     isDeleted: z.boolean().optional(),
     isVerified: z.boolean().optional(),
     address: z.string().min(1, { message: "Address cannot be empty" }).optional(),
