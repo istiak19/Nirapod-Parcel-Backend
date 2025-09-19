@@ -40,6 +40,11 @@ const parcelSchema = new Schema<IParcel>({
         ref: "user",
         required: true
     },
+    rider: {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+        required: true
+    },
     type: {
         type: String,
         required: true

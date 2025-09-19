@@ -14,6 +14,7 @@ export interface IParcel {
     trackingId: string;
     sender: Types.ObjectId;
     receiver: Types.ObjectId;
+    rider?: Types.ObjectId;
     type: string;
     weight: number;
     fee: number;

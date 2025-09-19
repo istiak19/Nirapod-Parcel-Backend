@@ -40,6 +40,11 @@ const parcelSchema = new mongoose_1.Schema({
         ref: "user",
         required: true
     },
+    rider: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: "user",
+        required: true
+    },
     type: {
         type: String,
         required: true

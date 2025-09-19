@@ -42,6 +42,16 @@ const allGetUser = (token) => __awaiter(void 0, void 0, void 0, function* () {
         totalUser
     };
 });
+const getAllRiders = (token) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistUser = yield user_model_1.User.findById(token.userId);
+    if (!isExistUser) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+    }
+    ;
+    const users = yield user_model_1.User.find().select("-password");
+    const allUser = users.filter(user => user.role === "Rider");
+    return allUser;
+});
 const getMeUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.User.findOne({ email }).select("-password");
     return user;
@@ -107,6 +117,7 @@ const userUpdate = (userId, payload, decodedToken) => __awaiter(void 0, void 0, 
 });
 exports.userService = {
     allGetUser,
+    getAllRiders,
     getMeUser,
     getSingleUser,
     createUser,

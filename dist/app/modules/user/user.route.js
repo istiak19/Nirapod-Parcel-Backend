@@ -9,6 +9,7 @@ const validateRequest_1 = require("../../middleware/validateRequest");
 const user_validation_1 = require("./user.validation");
 const router = (0, express_1.Router)();
 router.get("/all-user", (0, checkAuth_1.checkAuth)("Admin"), user_controller_1.userController.allGetUser);
+router.get("/all-rider", (0, checkAuth_1.checkAuth)("Admin"), user_controller_1.userController.getAllRiders);
 router.get("/get-me", (0, checkAuth_1.checkAuth)("Admin", "Sender", "Receiver", "Rider"), user_controller_1.userController.getMeUser);
 router.post("/register", (0, validateRequest_1.validateRequest)(user_validation_1.createUserZodSchema), user_controller_1.userController.createUser);
 router.get("/:id", (0, checkAuth_1.checkAuth)("Admin", "Sender", "Receiver", "Rider"), user_controller_1.userController.getSingleUser);
