@@ -30,7 +30,7 @@ const userSchema = new Schema<IUser>({
     },
     role: {
         type: String,
-        enum: ["Admin", "Sender", "Receiver"],
+        enum: ["Admin", "Sender", "Receiver", "Rider"],
         default: "Receiver"
     },
     phone: {
@@ -41,6 +41,11 @@ const userSchema = new Schema<IUser>({
     },
     address: {
         type: String
+    },
+    isStatus: {
+        type: String,
+        enum: ["Active", "Inactive"],
+        default: "Inactive"
     },
     isBlocked: {
         type: String,

@@ -10,12 +10,13 @@ export interface IUser {
     name: string,
     email: string,
     password?: string,
-    role: "Admin" | "Sender" | "Receiver";
+    role: "Admin" | "Sender" | "Receiver" | "Rider";
     phone?: string;
     picture?: string;
     address?: string;
     isDelete?: boolean;
     isBlocked?: "Active" | "Inactive" | "Blocked";
+    isStatus?: "Active" | "Inactive";
     companyName?: string;
     isVerified?: boolean;
     auths: IAuthProvider[];
