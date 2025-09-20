@@ -19,6 +19,17 @@ const allGetUser = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const getAllRiders = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const user = await userService.getAllRiders(decodedToken);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Users retrieved successfully",
+        data: user
+    });
+});
+
 const getMeUser = catchAsync(async (req: Request, res: Response) => {
     const decodedToken = req.user as JwtPayload;
     const user = await userService.getMeUser(decodedToken.email);
@@ -69,6 +80,7 @@ const userUpdate = catchAsync(async (req: Request, res: Response) => {
 
 export const userController = {
     allGetUser,
+    getAllRiders,
     getMeUser,
     getSingleUser,
     createUser,

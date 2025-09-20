@@ -184,6 +184,19 @@ const isBlockedParcel = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const assignRiderParcel = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = await parcelService.assignRiderParcel(payload, decodedToken, id);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Rider assigned to parcel successfully",
+        data: parcel
+    });
+});
+
 export const parcelController = {
     getTrackingParcel,
     getMeParcel,
@@ -198,5 +211,6 @@ export const parcelController = {
     getAllParcel,
     statusParcel,
     isBlockedParcel,
-    getMeReceiverParcel
+    getMeReceiverParcel,
+    assignRiderParcel
 };

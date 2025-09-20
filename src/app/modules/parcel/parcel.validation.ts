@@ -28,4 +28,5 @@ export const updateParcelZodSchema = z.object({
         })
     ).optional(),
     isBlocked: z.boolean().optional(),
+    rider: z.string().optional()
 });

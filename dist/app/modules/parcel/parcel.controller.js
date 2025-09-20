@@ -182,6 +182,18 @@ const isBlockedParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(voi
         data: parcel
     });
 }));
+const assignRiderParcel = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const decodedToken = req.user;
+    const id = req.params.id;
+    const payload = req.body;
+    const parcel = yield parcel_service_1.parcelService.assignRiderParcel(payload, decodedToken, id);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Rider assigned to parcel successfully",
+        data: parcel
+    });
+}));
 exports.parcelController = {
     getTrackingParcel,
     getMeParcel,
@@ -196,5 +208,6 @@ exports.parcelController = {
     getAllParcel,
     statusParcel,
     isBlockedParcel,
-    getMeReceiverParcel
+    getMeReceiverParcel,
+    assignRiderParcel
 };

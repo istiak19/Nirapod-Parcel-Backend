@@ -20,5 +20,6 @@ router.patch("/reschedule/:id", checkAuth("Receiver"), parcelController.reschedu
 router.patch("/delivered/:id", checkAuth("Receiver"), validateRequest(updateParcelZodSchema), parcelController.confirmDeliveryParcel);
 router.patch("/status/:id", checkAuth("Admin"), validateRequest(updateParcelZodSchema), parcelController.statusParcel);
 router.patch("/block/:id", checkAuth("Admin"), validateRequest(updateParcelZodSchema), parcelController.isBlockedParcel);
+router.patch("/assign-parcel/:id", checkAuth("Admin"), validateRequest(updateParcelZodSchema), parcelController.assignRiderParcel);
 
 export const parcelRoutes = router;

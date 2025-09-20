@@ -20,6 +20,17 @@ const allGetUser = async (token: JwtPayload) => {
     };
 };
 
+const getAllRiders = async (token: JwtPayload) => {
+    const isExistUser = await User.findById(token.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    };
+
+    const users = await User.find().select("-password");
+    const allUser = users.filter(user => user.role === "Rider");
+    return allUser;
+};
+
 const getMeUser = async (email: string) => {
     const user = await User.findOne({ email }).select("-password");
     return user;
@@ -96,6 +107,7 @@ const userUpdate = async (userId: string, payload: Partial<IUser>, decodedToken:
 
 export const userService = {
     allGetUser,
+    getAllRiders,
     getMeUser,
     getSingleUser,
     createUser,
