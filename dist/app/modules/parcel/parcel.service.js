@@ -336,7 +336,8 @@ const getAllParcel = (token, query) => __awaiter(void 0, void 0, void 0, functio
         .pagination()
         .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
     const metaData = yield queryBuilder.meta("Admin", token.userId);
     return {
         parcel,
@@ -406,6 +407,27 @@ const isBlockedParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0
     });
     return parcel;
 });
+const assignRiderParcel = (payload, admin, id) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExistUser = yield user_model_1.User.findById(admin.userId);
+    if (!isExistUser) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "User not found");
+    }
+    ;
+    const isExistParcel = yield parcel_model_1.Parcel.findById(id);
+    if (!isExistParcel) {
+        throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "Parcel not found");
+    }
+    ;
+    if (isExistParcel.currentStatus !== "Dispatched") {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Rider can only be assigned when the parcel status is Dispatched");
+    }
+    ;
+    const parcel = yield parcel_model_1.Parcel.findByIdAndUpdate(id, { rider: payload.rider }, {
+        runValidators: true,
+        new: true
+    });
+    return parcel;
+});
 exports.parcelService = {
     getTrackingParcel,
     getMeParcel,
@@ -420,5 +442,6 @@ exports.parcelService = {
     getAllParcel,
     statusParcel,
     isBlockedParcel,
-    getMeReceiverParcel
+    getMeReceiverParcel,
+    assignRiderParcel
 };

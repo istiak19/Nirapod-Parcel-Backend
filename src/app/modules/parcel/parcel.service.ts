@@ -369,7 +369,8 @@ const getAllParcel = async (token: JwtPayload, query: Record<string, string>) =>
         .pagination()
         .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
     const metaData = await queryBuilder.meta("Admin", token.userId)
     return {
         parcel,
@@ -446,6 +447,30 @@ const isBlockedParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id:
     return parcel;
 };
 
+const assignRiderParcel = async (payload: Partial<IParcel>, admin: JwtPayload, id: string) => {
+    const isExistUser = await User.findById(admin.userId);
+    if (!isExistUser) {
+        throw new AppError(httpStatus.NOT_FOUND, "User not found");
+    };
+
+    const isExistParcel = await Parcel.findById(id);
+
+    if (!isExistParcel) {
+        throw new AppError(httpStatus.NOT_FOUND, "Parcel not found");
+    };
+
+    if (isExistParcel.currentStatus !== "Dispatched") {
+        throw new AppError(httpStatus.BAD_REQUEST, "Rider can only be assigned when the parcel status is Dispatched");
+    };
+
+    const parcel = await Parcel.findByIdAndUpdate(id, { rider: payload.rider }, {
+        runValidators: true,
+        new: true
+    });
+
+    return parcel;
+};
+
 export const parcelService = {
     getTrackingParcel,
     getMeParcel,
@@ -460,5 +485,6 @@ export const parcelService = {
     getAllParcel,
     statusParcel,
     isBlockedParcel,
-    getMeReceiverParcel
+    getMeReceiverParcel,
+    assignRiderParcel
 };

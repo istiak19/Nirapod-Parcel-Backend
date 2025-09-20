@@ -21,4 +21,5 @@ router.patch("/reschedule/:id", (0, checkAuth_1.checkAuth)("Receiver"), parcel_c
 router.patch("/delivered/:id", (0, checkAuth_1.checkAuth)("Receiver"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.confirmDeliveryParcel);
 router.patch("/status/:id", (0, checkAuth_1.checkAuth)("Admin"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.statusParcel);
 router.patch("/block/:id", (0, checkAuth_1.checkAuth)("Admin"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.isBlockedParcel);
+router.patch("/assign-parcel/:id", (0, checkAuth_1.checkAuth)("Admin"), (0, validateRequest_1.validateRequest)(parcel_validation_1.updateParcelZodSchema), parcel_controller_1.parcelController.assignRiderParcel);
 exports.parcelRoutes = router;

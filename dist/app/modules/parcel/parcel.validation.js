@@ -27,4 +27,5 @@ exports.updateParcelZodSchema = zod_1.z.object({
         updatedBy: zod_1.z.string().optional()
     })).optional(),
     isBlocked: zod_1.z.boolean().optional(),
+    rider: zod_1.z.string().optional()
 });
