@@ -36,8 +36,21 @@ const getAllRiders = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0
     (0, sendResponse_1.default)(res, {
         success: true,
         statusCode: http_status_1.default.OK,
-        message: "Users retrieved successfully",
+        message: "All riders retrieved successfully",
         data: user
+    });
+}));
+const getAllAssign = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const decodedToken = req.user;
+    const user = yield user_service_1.userService.getAllAssign(decodedToken);
+    (0, sendResponse_1.default)(res, {
+        success: true,
+        statusCode: http_status_1.default.OK,
+        message: "Assign rider retrieved successfully",
+        data: user.user,
+        meta: {
+            total: user.totalAssign
+        }
     });
 }));
 const getMeUser = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -85,6 +98,7 @@ const userUpdate = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, 
 exports.userController = {
     allGetUser,
     getAllRiders,
+    getAllAssign,
     getMeUser,
     getSingleUser,
     createUser,

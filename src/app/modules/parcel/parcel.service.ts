@@ -38,7 +38,8 @@ const getMeParcel = async (sender: JwtPayload, query: Record<string, string>) =>
         .pagination()
         .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
 
     if (!parcel || parcel.length === 0) {
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
@@ -185,6 +186,7 @@ const incomingParcels = async (id: string) => {
     })
         .populate("sender", "name email phone")
         .populate("receiver", "name email")
+        .populate("rider", "name phone");
 
     if (!parcels.length) {
         throw new AppError(httpStatus.NOT_FOUND, "No incoming parcel found");
@@ -462,6 +464,16 @@ const assignRiderParcel = async (payload: Partial<IParcel>, admin: JwtPayload, i
     if (isExistParcel.currentStatus !== "Dispatched") {
         throw new AppError(httpStatus.BAD_REQUEST, "Rider can only be assigned when the parcel status is Dispatched");
     };
+
+    const ids = payload.rider;
+
+    await User.findByIdAndUpdate(ids,
+        { $addToSet: { assignedParcels: id } },
+        {
+            runValidators: true,
+            new: true,
+        }
+    );
 
     const parcel = await Parcel.findByIdAndUpdate(id, { rider: payload.rider }, {
         runValidators: true,

@@ -25,8 +25,22 @@ const getAllRiders = catchAsync(async (req: Request, res: Response) => {
     sendResponse(res, {
         success: true,
         statusCode: httpStatus.OK,
-        message: "Users retrieved successfully",
+        message: "All riders retrieved successfully",
         data: user
+    });
+});
+
+const getAllAssign = catchAsync(async (req: Request, res: Response) => {
+    const decodedToken = req.user as JwtPayload;
+    const user = await userService.getAllAssign(decodedToken);
+    sendResponse(res, {
+        success: true,
+        statusCode: httpStatus.OK,
+        message: "Assign rider retrieved successfully",
+        data: user.user,
+        meta: {
+            total: user.totalAssign
+        }
     });
 });
 
@@ -81,6 +95,7 @@ const userUpdate = catchAsync(async (req: Request, res: Response) => {
 export const userController = {
     allGetUser,
     getAllRiders,
+    getAllAssign,
     getMeUser,
     getSingleUser,
     createUser,

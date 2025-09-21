@@ -65,6 +65,11 @@ const userSchema = new mongoose_1.Schema({
         type: [mongoose_1.Schema.Types.ObjectId],
         ref: "parcel",
         default: []
+    },
+    assignedParcels: {
+        type: [mongoose_1.Schema.Types.ObjectId],
+        ref: "parcel",
+        default: []
     }
 }, {
     versionKey: false,
