@@ -46,7 +46,8 @@ const getMeParcel = (sender, query) => __awaiter(void 0, void 0, void 0, functio
         .pagination()
         .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
     if (!parcel || parcel.length === 0) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No parcels found for your account.");
     }
@@ -167,7 +168,8 @@ const incomingParcels = (id) => __awaiter(void 0, void 0, void 0, function* () {
         currentStatus: { $nin: ["Delivered", "Returned", "Cancelled"] }
     })
         .populate("sender", "name email phone")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
     if (!parcels.length) {
         throw new AppError_1.AppError(http_status_1.default.NOT_FOUND, "No incoming parcel found");
     }

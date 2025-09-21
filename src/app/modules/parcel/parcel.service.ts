@@ -38,7 +38,8 @@ const getMeParcel = async (sender: JwtPayload, query: Record<string, string>) =>
         .pagination()
         .modelQuery
         .populate("sender", "name email")
-        .populate("receiver", "name email");
+        .populate("receiver", "name email")
+        .populate("rider", "name phone");
 
     if (!parcel || parcel.length === 0) {
         throw new AppError(httpStatus.NOT_FOUND, "No parcels found for your account.");
@@ -185,6 +186,7 @@ const incomingParcels = async (id: string) => {
     })
         .populate("sender", "name email phone")
         .populate("receiver", "name email")
+        .populate("rider", "name phone");
 
     if (!parcels.length) {
         throw new AppError(httpStatus.NOT_FOUND, "No incoming parcel found");
