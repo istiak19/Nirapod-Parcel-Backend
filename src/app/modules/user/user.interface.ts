@@ -21,5 +21,6 @@ export interface IUser {
     isVerified?: boolean;
     auths: IAuthProvider[];
     parcelId?: Types.ObjectId[];
+    assignedParcels?: Types.ObjectId[];
     createdAt?: Date
 };

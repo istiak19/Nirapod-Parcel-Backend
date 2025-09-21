@@ -31,6 +31,30 @@ const getAllRiders = async (token: JwtPayload) => {
     return allUser;
 };
 
+const getAllAssign = async (token: JwtPayload) => {
+    const user = await User.findById(token.userId)
+        .select("-password")
+        .populate({
+            path: "assignedParcels",
+            model: "parcel",
+            populate: [
+                { path: "sender", model: "user", select: "name email phone" },
+                { path: "receiver", model: "user", select: "name email phone" }
+            ]
+        });
+
+    if (!user) {
+        throw new AppError(httpStatus.BAD_REQUEST, "User not found");
+    }
+
+    const totalAssign = user.assignedParcels?.length || 0;
+
+    return {
+        user,
+        totalAssign
+    };
+};
+
 const getMeUser = async (email: string) => {
     const user = await User.findOne({ email }).select("-password");
     return user;
@@ -108,6 +132,7 @@ const userUpdate = async (userId: string, payload: Partial<IUser>, decodedToken:
 export const userService = {
     allGetUser,
     getAllRiders,
+    getAllAssign,
     getMeUser,
     getSingleUser,
     createUser,

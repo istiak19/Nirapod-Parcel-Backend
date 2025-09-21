@@ -65,6 +65,11 @@ const userSchema = new Schema<IUser>({
         type: [Schema.Types.ObjectId],
         ref: "parcel",
         default: []
+    },
+    assignedParcels: {
+        type: [Schema.Types.ObjectId],
+        ref: "parcel",
+        default: []
     }
 }, {
     versionKey: false,

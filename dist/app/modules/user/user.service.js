@@ -52,6 +52,27 @@ const getAllRiders = (token) => __awaiter(void 0, void 0, void 0, function* () {
     const allUser = users.filter(user => user.role === "Rider");
     return allUser;
 });
+const getAllAssign = (token) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const user = yield user_model_1.User.findById(token.userId)
+        .select("-password")
+        .populate({
+        path: "assignedParcels",
+        model: "parcel",
+        populate: [
+            { path: "sender", model: "user", select: "name email phone" },
+            { path: "receiver", model: "user", select: "name email phone" }
+        ]
+    });
+    if (!user) {
+        throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "User not found");
+    }
+    const totalAssign = ((_a = user.assignedParcels) === null || _a === void 0 ? void 0 : _a.length) || 0;
+    return {
+        user,
+        totalAssign
+    };
+});
 const getMeUser = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield user_model_1.User.findOne({ email }).select("-password");
     return user;
@@ -118,6 +139,7 @@ const userUpdate = (userId, payload, decodedToken) => __awaiter(void 0, void 0, 
 exports.userService = {
     allGetUser,
     getAllRiders,
+    getAllAssign,
     getMeUser,
     getSingleUser,
     createUser,

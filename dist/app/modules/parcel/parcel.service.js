@@ -424,6 +424,11 @@ const assignRiderParcel = (payload, admin, id) => __awaiter(void 0, void 0, void
         throw new AppError_1.AppError(http_status_1.default.BAD_REQUEST, "Rider can only be assigned when the parcel status is Dispatched");
     }
     ;
+    const ids = payload.rider;
+    yield user_model_1.User.findByIdAndUpdate(ids, { $addToSet: { assignedParcels: id } }, {
+        runValidators: true,
+        new: true,
+    });
     const parcel = yield parcel_model_1.Parcel.findByIdAndUpdate(id, { rider: payload.rider }, {
         runValidators: true,
         new: true

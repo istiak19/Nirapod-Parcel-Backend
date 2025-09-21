@@ -465,6 +465,16 @@ const assignRiderParcel = async (payload: Partial<IParcel>, admin: JwtPayload, i
         throw new AppError(httpStatus.BAD_REQUEST, "Rider can only be assigned when the parcel status is Dispatched");
     };
 
+    const ids = payload.rider;
+
+    await User.findByIdAndUpdate(ids,
+        { $addToSet: { assignedParcels: id } },
+        {
+            runValidators: true,
+            new: true,
+        }
+    );
+
     const parcel = await Parcel.findByIdAndUpdate(id, { rider: payload.rider }, {
         runValidators: true,
         new: true
